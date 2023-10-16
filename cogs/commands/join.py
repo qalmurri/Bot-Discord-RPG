@@ -66,7 +66,7 @@ class join(commands.Cog):
                                         },
                                         "bag": {
                                             "coin": 0,
-                                            "items": None,
+                                            "items": {},
                                             },
                                         "use": {},
                                         "attribut": {

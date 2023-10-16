@@ -21,16 +21,17 @@ class equip(commands.Cog):
                     {
                         "$set": {
                             "game.rpg.use.head": {
-                                "item": "tengkorak",
-                                "str": 312,
+                                "id": 21,
+                                "name": "tengkorak",
+                                "class": "rare",
+                                "str": 999999,
                                 "vit": 31,
                                 "int": 12,
                                 "agi": 2,
-                                "fire": 100,
-                                "wind": 0,
-                                "water": 0,
-                                "earth": 0,
-                                    
+                                "fire": 20,
+                                "wind": 41,
+                                "water": 12,
+                                "earth": 44,
                                 }
                             }
                         }

@@ -12,8 +12,10 @@ async def on_ready():
 async def setup_hook() -> None:
     extensions = [
         'cogs.activity.message',
+
         'cogs.commands.profile',
         'cogs.commands.join',
+        
         'rpg.commands.equip'
         ]
     
