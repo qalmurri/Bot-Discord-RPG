@@ -1,0 +1,5 @@
+discord.py
+pillow
+motor
+aiohttp
+requests
