@@ -16,7 +16,10 @@ async def setup_hook() -> None:
         'cogs.commands.profile',
         'cogs.commands.join',
         
-        'rpg.commands.equip'
+        'rpg.commands.equip',
+        'rpg.commands.equip1',
+        'rpg.commands.unequip',
+        'rpg.commands.unequip1',
         ]
     
     for extension in extensions:

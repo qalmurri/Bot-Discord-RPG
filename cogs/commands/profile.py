@@ -60,11 +60,29 @@ class profile(commands.Cog):
                 else:
                     check = player.get("game", {}).get("rpg", {})
                     if check is not None and check :
-                        with Image.open("assets/rpg/profile/default.png") as a:
-                            avatar = interaction.user.display_avatar
+                        with Image.open("assets/rpg/profile/default2.jpg") as a:
                             username = interaction.user.name
 
+                            e = ImageFont.truetype("assets/font/Diablo Heavy.ttf", 16)
+                            c = ImageFont.truetype("assets/font/Diablo Heavy.ttf", 10)
+
+                            avatar = interaction.user.display_avatar
+                            ava = Image.open(requests.get(avatar, stream=True).raw)
+                            a.paste(ava.resize((64, 64)), (4, 24))
+                            b = ImageDraw.Draw(a)
+
                             usehead = player.get("game", {}).get("rpg", {}).get("use", {}).get("head", {}).get("name", None)
+                            headatk = player.get("game", {}).get("rpg", {}).get("use", {}).get("head", {}).get("str", None)
+                            headvit = player.get("game", {}).get("rpg", {}).get("use", {}).get("head", {}).get("vit", None)
+                            if usehead is not None:
+                                itemhead = Image.open(f"assets/rpg/item/head/{usehead}.png")
+                                iconhead = Image.open(f"assets/rpg/item/head/{usehead}.png")
+                                a.paste(itemhead.resize((80, 80)), (394, 6))
+                                a.paste(iconhead.resize((22, 22)), (5, 153))
+                                b.text((34, 151), f"{usehead}\nSTR:{headatk},VIT:{headvit} ", font=c, fill="white")
+                            else:
+                                pass
+
                             usebody = player.get("game", {}).get("rpg", {}).get("use", {}).get("body", {}).get("name", None)
                             usehand1 = player.get("game", {}).get("rpg", {}).get("use", {}).get("hand1", {}).get("name", None)
                             usehand2 = player.get("game", {}).get("rpg", {}).get("use", {}).get("hand2", {}).get("name", None)
@@ -201,30 +219,24 @@ class profile(commands.Cog):
                             statswind = headwind + bodywind + hand1wind + hand2wind + beltwind + gloveswind + ring1wind + ring2wind + bootswind + necklacewind
                             statsearth = headearth + bodyearth +hand1earth + hand2earth + beltearth + glovesearth + ring1earth + ring2earth + bootsearth + necklaceearth
 
-                            c = ImageFont.truetype("arial.ttf", 10)
-                            e = ImageFont.truetype("arial.ttf", 16)
-                            d = Image.open(requests.get(avatar, stream=True).raw)
-                            b = ImageDraw.Draw(a)
                             
-                            a.paste(d.resize((70, 70)), (4, 24))
+                            
 
-                            b.text((4, 2), username, font=e, fill="blue")
-                            b.text((80, 23), f"Exp\nVit\nAgi\nInt\nStr", font=c, fill="red")
-                            b.text((98, 23), ":\n:\n:\n:\n:", font=c, fill="red")
-                            b.text((103, 23), f"{exp}\n{vitality}+{statsvitality}\n{agility}+{statsagility}\n{inteligent}+{statsinteligent}\n{strength}+{statsstrength}", font=c, fill="red")
+                            b.text((4, 2), f"LVL 10 | {username}", font=e, fill="white")
 
-                            b.text((160, 23), f"Lvl\nFire\nWind\nWater\nEarth", font=c, fill="red")
-                            b.text((188, 23), ":\n:\n:\n:\n:", font=c, fill="red")
-                            b.text((193, 23), f"100\n{fire}+{statsfire}\n{wind}+{statswind}\n{water}+{statswater}\n{earth}+{statsearth}", font=c, fill="red")
+                            
+                            b.text((4, 89), f"HP\n{hp}/1200\nMANA\n{mana}/2000", font=c, fill="white")
+                            b.text((72, 33), f"VIT\nAGI\nINT\nSTR\nFIRE\nWIND\nWATER\nEARTH", font=c, fill="white")
+                            b.text((115, 33), ":\n:\n:\n:\n:\n:\n:\n:", font=c, fill="white")
+                            b.text((120, 33), f"{vitality}+{statsvitality}\n{agility}+{statsagility}\n{inteligent}+{statsinteligent}\n{strength}+{statsstrength}\n{fire}+{statsfire}\n{wind}+{statswind}\n{water}+{statswater}\n{earth}+{statsearth}", font=c, fill="white")
+                            b.text((180, 33), f"ATK\nASPD\nDEF\nMDEF\nMATK\nCRIT\nPOINT\nGUILD", font=c, fill="white")
+                            b.text((216, 33), ":\n:\n:\n:\n:\n:\n:\n:", font=c, fill="white")
 
-                            b.text((4, 95), f"HP\nMana", font=c, fill="red")
-                            b.text((45, 95), ":\n:", font=c, fill="red")
-                            b.text((50, 95), f"{hp}\n{mana}", font=c, fill="red")
 
-                            b.text((250, 5), f"Head: {usehead}\nBody: {usebody}\nHand1: {usehand1}\nHand2: {usehand2}\nBelt: {usebelt}\nGloves: {usegloves}\nRing1: {usering1}\nRing2: {usering2}\nBoots: {useboots}\nNecklace: {usenecklace}", font=c, fill="red")
+                            #b.text((250, 5), f"Head: {usehead}\nBody: {usebody}\nHand1: {usehand1}\nHand2: {usehand2}\nBelt: {usebelt}\nGloves: {usegloves}\nRing1: {usering1}\nRing2: {usering2}\nBoots: {useboots}\nNecklace: {usenecklace}", font=c, fill="white")
 
-                            a.save(f"stats/rpg/profile/{interaction.guild.id}.png")
-                            await interaction.response.send_message(file=discord.File(f"stats/rpg/profile/{interaction.guild.id}.png"))
+                            a.save(f"stats/rpg/profile/{interaction.guild.id}.jpg")
+                            await interaction.response.send_message(file=discord.File(f"stats/rpg/profile/{interaction.guild.id}.jpg"))
                             #await interaction.response.send_message("user sudah punya game rpg")
                     else:
                         await interaction.response.send_message("user belum punya game rpg")
