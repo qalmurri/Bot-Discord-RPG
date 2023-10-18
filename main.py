@@ -14,8 +14,8 @@ async def setup_hook() -> None:
         'cogs.activity.message',
         'cogs.commands.profile',
         'cogs.commands.join',
-        'rpg.commands.equip',
-        'rpg.commands.unequip'
+        'cogs.commands.basic',
+        'rpg.commands.test_equip'
         ]
     
     for extension in extensions:
