@@ -76,55 +76,36 @@ class profile(commands.Cog):
 
                             head_data = player.get("game", {}).get("rpg", {}).get("use", {}).get("head", {})
                             if head_data :
-                                head_name = head_data.get("name", None)
+                                head_name, head_class = (head_data.get(key, None) for key in ("name", "class"))
                                 head_id, head_str, head_vit, head_int, head_agi, head_fire, head_water, head_wind, head_earth = (head_data.get(key, 0) for key in ("id_item", "str", "vit", "int", "agi", "fire", "water", "wind", "earth"))
-                                head_humbnail = Image.open(f"assets/rpg/item/head/{head_id}.png")
-                                head_icon = Image.open(f"assets/rpg/item/head/{head_id}.png")
-                                a.paste(head_humbnail.resize((80, 80)), (394, 6))
-                                a.paste(head_icon.resize((22, 22)), (5, 153))
+                                a.paste(Image.open(f"assets/rpg/class/{head_class}.jpg").resize((281, 26)), (3, 151)) #Class
+                                a.paste(Image.open(f"assets/rpg/item/head/{head_id}.png").resize((80, 80)), (394, 6)) #Thumbnail
+                                a.paste(Image.open(f"assets/rpg/item/head/{head_id}.png").resize((22, 22)), (5, 153)) #Icon
                                 b.text((34, 151),f"{head_name}\nSTR{head_str}|VIT{head_vit}|INT{head_int}|AGI{head_agi}|F{head_fire}|W{head_water}|W{head_wind}|E{head_earth}", font=c, fill="white")
                             else:
                                 head_str = head_vit = head_int = head_agi = head_fire = head_water = head_wind = head_earth = 0
 
                             necklace1_data = player.get("game", {}).get("rpg", {}).get("use", {}).get("necklace1", {})
-                            necklace1_id = necklace1_data.get("id_item", None)
-                            necklace1_name = necklace1_data.get("name", None)
-                            necklace1_str = necklace1_data.get("str", 0)
-                            necklace1_vit = necklace1_data.get("vit", 0)
-                            necklace1_int = necklace1_data.get("int", 0)
-                            necklace1_agi = necklace1_data.get("agi", 0)
-                            necklace1_fire = necklace1_data.get("fire", 0)
-                            necklace1_water = necklace1_data.get("water", 0)
-                            necklace1_wind = necklace1_data.get("wind", 0)
-                            necklace1_earth = necklace1_data.get("earth", 0)
-                            if necklace1_id is not None:
-                                necklace1_thumbnail = Image.open(f"assets/rpg/item/necklace/{necklace1_id}.png")
-                                necklace1_icon = Image.open(f"assets/rpg/item/necklace/{necklace1_id}.png")
-                                a.paste(necklace1_thumbnail.resize((80, 80)), (295, 77))
-                                a.paste(necklace1_icon.resize((22, 22)), (5, 181))
+                            if necklace1_data :
+                                necklace1_name, necklace1_class = (necklace1_data.get(key, None) for key in ("name", "class"))
+                                necklace1_id, necklace1_str, necklace1_vit, necklace1_int, necklace1_agi, necklace1_fire, necklace1_water, necklace1_wind, necklace1_earth = (necklace1_data.get(key, 0) for key in ("id_item", "str", "vit", "int", "agi", "fire", "water", "wind", "earth"))
+                                a.paste(Image.open(f"assets/rpg/class/{necklace1_class}.jpg").resize((281, 26)), (3, 179)) #Class
+                                a.paste(Image.open(f"assets/rpg/item/necklace/{necklace1_id}.png").resize((80, 80)), (295, 77)) #Thumbnail
+                                a.paste(Image.open(f"assets/rpg/item/necklace/{necklace1_id}.png").resize((22, 22)), (5, 181)) #Icon
                                 b.text((34, 179), f"{necklace1_name}\nSTR{necklace1_str}|VIT{necklace1_vit}|INT{necklace1_int}|AGI{necklace1_agi}|F{necklace1_fire}|W{necklace1_water}|W{necklace1_wind}|E{necklace1_earth}", font=c, fill="white")
                             else:
-                                pass
+                                necklace1_str = necklace1_vit = necklace1_int = necklace1_agi = necklace1_fire = necklace1_water = necklace1_wind = necklace1_earth = 0
 
                             necklace2_data = player.get("game", {}).get("rpg", {}).get("use", {}).get("necklace2", {})
-                            necklace2_id = necklace2_data.get("id_item", None)
-                            necklace2_name = necklace2_data.get("name", None)
-                            necklace2_str = necklace2_data.get("str", 0)
-                            necklace2_vit = necklace2_data.get("vit", 0)
-                            necklace2_int = necklace2_data.get("int", 0)
-                            necklace2_agi = necklace2_data.get("agi", 0)
-                            necklace2_fire = necklace2_data.get("fire", 0)
-                            necklace2_water = necklace2_data.get("water", 0)
-                            necklace2_wind = necklace2_data.get("wind", 0)
-                            necklace2_earth = necklace2_data.get("earth", 0)
-                            if necklace2_id is not None:
-                                necklace2_thumbnail = Image.open(f"assets/rpg/item/necklace/{necklace2_id}.png")
-                                necklace2_icon = Image.open(f"assets/rpg/item/necklace/{necklace2_id}.png")
-                                a.paste(necklace2_thumbnail.resize((80, 80)), (491, 77))
-                                a.paste(necklace2_icon.resize((22, 22)), (5, 209))
+                            if necklace2_data :
+                                necklace2_name, necklace2_class = (necklace2_data.get(key, None) for key in ("name", "class"))
+                                necklace2_id, necklace2_str, necklace2_vit, necklace2_int, necklace2_agi, necklace2_fire, necklace2_water, necklace2_wind, necklace2_earth = (necklace2_data.get(key, 0) for key in ("id_item", "str", "vit", "int", "agi", "fire", "water", "wind", "earth"))
+                                a.paste(Image.open(f"assets/rpg/class/{necklace2_class}.jpg").resize((281, 26)), (3, 207)) #Class
+                                a.paste(Image.open(f"assets/rpg/item/necklace/{necklace2_id}.png").resize((80, 80)), (491, 77)) #Thumbnail
+                                a.paste(Image.open(f"assets/rpg/item/necklace/{necklace2_id}.png").resize((22, 22)), (5, 209)) #Icon
                                 b.text((34, 207), f"{necklace2_name}\nSTR{necklace2_str}|VIT{necklace2_vit}|INT{necklace2_int}|AGI{necklace2_agi}|F{necklace2_fire}|W{necklace2_water}|W{necklace2_wind}|E{necklace2_earth}", font=c, fill="white")
                             else:
-                                pass
+                                necklace2_str = necklace2_vit = necklace2_int = necklace2_agi = necklace2_fire = necklace2_water = necklace2_wind = necklace2_earth = 0
 
                             body_data = player.get("game", {}).get("rpg", {}).get("use", {}).get("body", {})
                             body_id = body_data.get("id_item", None)
