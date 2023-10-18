@@ -23,6 +23,11 @@ class unequip(commands.Cog):
         await db.player[f"{interaction.guild.id}"].update_one({"_id": interaction.user.id}, {"$unset": {"game.rpg.use.necklace2": 1}})
         await interaction.response.send_message("kalung di badan sudah di lepas")
 
+    @app_commands.command(name="unequip_body", description="unequip_body")
+    async def unequip_body(self, interaction:discord.Interaction):
+        await db.player[f"{interaction.guild.id}"].update_one({"_id": interaction.user.id}, {"$unset": {"game.rpg.use.body": 1}})
+        await interaction.response.send_message("body di badan sudah di lepas")
+
 async def setup(bot):
     await bot.add_cog(unequip(bot))
 

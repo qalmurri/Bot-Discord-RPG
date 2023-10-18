@@ -101,6 +101,37 @@ class equip(commands.Cog):
                     )
             await interaction.response.send_message("necklace2 sudah terpasang")
 
+    @app_commands.command(name="equip_body", description="equip_body")
+    async def equip_body(self, interaction:discord.Interaction):
+        player = await db.player[f"{interaction.guild.id}"].find_one({"game.rpg.status": True})
+        if player is None:
+            await interaction.response.send_message("Kamu belum mempunyai game rpg")
+        else:
+            await db.player[f"{interaction.guild.id}"].update_one(
+                {
+                    "_id": interaction.user.id
+                    },
+                    {
+                        "$set": {
+                            "game.rpg.use.body": {
+                                "id_item": "co001",
+                                "name": "BAGAIKAN BAJA",
+                                "class": "rare",
+                                "price": 1200,
+                                "str": 44,
+                                "vit": 31,
+                                "int": 32,
+                                "agi": 21,
+                                "fire": 20,
+                                "wind": 44,
+                                "water": 66,
+                                "earth": 11,
+                                }
+                            }
+                        }
+                    )
+            await interaction.response.send_message("Body sudah terpasang")
+
 async def setup(bot):
     await bot.add_cog(equip(bot))
 
