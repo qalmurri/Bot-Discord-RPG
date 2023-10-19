@@ -40,18 +40,22 @@ class equip(commands.Cog):
                     {
                         "$set": {
                             "game.rpg.use.head": {
-                                "id_item": "co001",
+                                "id_item": 0,
+                                "id_image": "co001",
+                                "set_item": None,
                                 "name": "HEAD",
                                 "class": "common",
                                 "price": 1000,
-                                "str": 10,
-                                "vit": 10,
-                                "int": 10,
-                                "agi": 10,
-                                "fire": 10,
-                                "wind": 10,
-                                "water": 10,
-                                "earth": 10,
+                                "stats": {
+                                    "str": 10,
+                                    "vit": 10,
+                                    "int": 10,
+                                    "agi": 10,
+                                    "fire": 10,
+                                    "wind": 10,
+                                    "water": 10,
+                                    "earth": 10,
+                                    }
                                 }
                             }
                         }
@@ -65,18 +69,22 @@ class equip(commands.Cog):
                     {
                         "$set": {
                             "game.rpg.use.necklace1": {
-                                "id_item": "co001",
+                                "id_item": 0,
+                                "id_image": "co001",
+                                "set_item": None,
                                 "name": "NECKLACE1",
                                 "class": "common",
                                 "price": 1000,
-                                "str": 10,
-                                "vit": 10,
-                                "int": 10,
-                                "agi": 10,
-                                "fire": 10,
-                                "wind": 10,
-                                "water": 10,
-                                "earth": 10,
+                                "stats": {
+                                    "str": 10,
+                                    "vit": 10,
+                                    "int": 10,
+                                    "agi": 10,
+                                    "fire": 10,
+                                    "wind": 10,
+                                    "water": 10,
+                                    "earth": 10,
+                                    }
                                 }
                             }
                         }
@@ -90,18 +98,22 @@ class equip(commands.Cog):
                     {
                         "$set": {
                             "game.rpg.use.necklace2": {
-                                "id_item": "co001",
+                                "id_item": 0,
+                                "id_image": "co001",
+                                "set_item": None,
                                 "name": "NECKLACE2",
                                 "class": "common",
                                 "price": 1000,
-                                "str": 10,
-                                "vit": 10,
-                                "int": 10,
-                                "agi": 10,
-                                "fire": 10,
-                                "wind": 10,
-                                "water": 10,
-                                "earth": 10,
+                                "stats": {
+                                    "str": 10,
+                                    "vit": 10,
+                                    "int": 10,
+                                    "agi": 10,
+                                    "fire": 10,
+                                    "wind": 10,
+                                    "water": 10,
+                                    "earth": 10,
+                                    }
                                 }
                             }
                         }
@@ -115,18 +127,22 @@ class equip(commands.Cog):
                     {
                         "$set": {
                             "game.rpg.use.body": {
-                                "id_item": "co001",
+                                "id_item": 0,
+                                "id_image": "co001",
+                                "set_item": None,
                                 "name": "BODY",
                                 "class": "common",
                                 "price": 1000,
-                                "str": 10,
-                                "vit": 10,
-                                "int": 10,
-                                "agi": 10,
-                                "fire": 10,
-                                "wind": 10,
-                                "water": 10,
-                                "earth": 10,
+                                "stats": {
+                                    "str": 10,
+                                    "vit": 10,
+                                    "int": 10,
+                                    "agi": 10,
+                                    "fire": 10,
+                                    "wind": 10,
+                                    "water": 10,
+                                    "earth": 10,
+                                    }
                                 }
                             }
                         }
@@ -140,18 +156,22 @@ class equip(commands.Cog):
                     {
                         "$set": {
                             "game.rpg.use.gloves1": {
-                                "id_item": "co001",
+                                "id_item": 0,
+                                "id_image": "co001",
+                                "set_item": None,
                                 "name": "GLOVES1",
                                 "class": "common",
                                 "price": 1000,
-                                "str": 10,
-                                "vit": 10,
-                                "int": 10,
-                                "agi": 10,
-                                "fire": 10,
-                                "wind": 10,
-                                "water": 10,
-                                "earth": 10,
+                                "stats": {
+                                    "str": 10,
+                                    "vit": 10,
+                                    "int": 10,
+                                    "agi": 10,
+                                    "fire": 10,
+                                    "wind": 10,
+                                    "water": 10,
+                                    "earth": 10,
+                                    }
                                 }
                             }
                         }
@@ -165,18 +185,22 @@ class equip(commands.Cog):
                     {
                         "$set": {
                             "game.rpg.use.gloves2": {
-                                "id_item": "co001",
+                                "id_item": 0,
+                                "id_image": "co001",
+                                "set_item": None,
                                 "name": "GLOVES2",
                                 "class": "common",
                                 "price": 1000,
-                                "str": 10,
-                                "vit": 10,
-                                "int": 10,
-                                "agi": 10,
-                                "fire": 10,
-                                "wind": 10,
-                                "water": 10,
-                                "earth": 10,
+                                "stats": {
+                                    "str": 10,
+                                    "vit": 10,
+                                    "int": 10,
+                                    "agi": 10,
+                                    "fire": 10,
+                                    "wind": 10,
+                                    "water": 10,
+                                    "earth": 10,
+                                    }
                                 }
                             }
                         }
@@ -190,18 +214,22 @@ class equip(commands.Cog):
                     {
                         "$set": {
                             "game.rpg.use.belt": {
-                                "id_item": "co001",
+                                "id_item": 0,
+                                "id_image": "co001",
+                                "set_item": None,
                                 "name": "BELT",
                                 "class": "common",
                                 "price": 1000,
-                                "str": 10,
-                                "vit": 10,
-                                "int": 10,
-                                "agi": 10,
-                                "fire": 10,
-                                "wind": 10,
-                                "water": 10,
-                                "earth": 10,
+                                "stats": {
+                                    "str": 10,
+                                    "vit": 10,
+                                    "int": 10,
+                                    "agi": 10,
+                                    "fire": 10,
+                                    "wind": 10,
+                                    "water": 10,
+                                    "earth": 10,
+                                    }
                                 }
                             }
                         }
@@ -215,18 +243,22 @@ class equip(commands.Cog):
                     {
                         "$set": {
                             "game.rpg.use.ring1": {
-                                "id_item": "co001",
+                                "id_item": 0,
+                                "id_image": "co001",
+                                "set_item": None,
                                 "name": "RING1",
                                 "class": "common",
                                 "price": 1000,
-                                "str": 10,
-                                "vit": 10,
-                                "int": 10,
-                                "agi": 10,
-                                "fire": 10,
-                                "wind": 10,
-                                "water": 10,
-                                "earth": 10,
+                                "stats": {
+                                    "str": 10,
+                                    "vit": 10,
+                                    "int": 10,
+                                    "agi": 10,
+                                    "fire": 10,
+                                    "wind": 10,
+                                    "water": 10,
+                                    "earth": 10,
+                                    }
                                 }
                             }
                         }
@@ -240,18 +272,22 @@ class equip(commands.Cog):
                     {
                         "$set": {
                             "game.rpg.use.ring2": {
-                                "id_item": "co001",
+                                "id_item": 0,
+                                "id_image": "co001",
+                                "set_item": None,
                                 "name": "RING2",
                                 "class": "common",
                                 "price": 1000,
-                                "str": 10,
-                                "vit": 10,
-                                "int": 10,
-                                "agi": 10,
-                                "fire": 10,
-                                "wind": 10,
-                                "water": 10,
-                                "earth": 10,
+                                "stats": {
+                                    "str": 10,
+                                    "vit": 10,
+                                    "int": 10,
+                                    "agi": 10,
+                                    "fire": 10,
+                                    "wind": 10,
+                                    "water": 10,
+                                    "earth": 10,
+                                    }
                                 }
                             }
                         }
@@ -265,18 +301,22 @@ class equip(commands.Cog):
                     {
                         "$set": {
                             "game.rpg.use.pants": {
-                                "id_item": "co001",
+                                "id_item": 0,
+                                "id_image": "co001",
+                                "set_item" : None,
                                 "name": "PANTS",
                                 "class": "common",
                                 "price": 1000,
-                                "str": 10,
-                                "vit": 10,
-                                "int": 10,
-                                "agi": 10,
-                                "fire": 10,
-                                "wind": 10,
-                                "water": 10,
-                                "earth": 10,
+                                "stats": {
+                                    "str": 10,
+                                    "vit": 10,
+                                    "int": 10,
+                                    "agi": 10,
+                                    "fire": 10,
+                                    "wind": 10,
+                                    "water": 10,
+                                    "earth": 10,
+                                    }
                                 }
                             }
                         }
@@ -290,18 +330,22 @@ class equip(commands.Cog):
                     {
                         "$set": {
                             "game.rpg.use.hand1": {
-                                "id_item": "co001",
+                                "id_item": 0,
+                                "id_image": "co001",
+                                "set_item": None,
                                 "name": "HAND1",
                                 "class": "common",
                                 "price": 1000,
-                                "str": 10,
-                                "vit": 10,
-                                "int": 10,
-                                "agi": 10,
-                                "fire": 10,
-                                "wind": 10,
-                                "water": 10,
-                                "earth": 10,
+                                "stats": {
+                                    "str": 10,
+                                    "vit": 10,
+                                    "int": 10,
+                                    "agi": 10,
+                                    "fire": 10,
+                                    "wind": 10,
+                                    "water": 10,
+                                    "earth": 10,
+                                    }
                                 }
                             }
                         }
@@ -315,18 +359,22 @@ class equip(commands.Cog):
                     {
                         "$set": {
                             "game.rpg.use.hand2": {
-                                "id_item": "co001",
+                                "id_item": 0,
+                                "id_image": "co001",
+                                "set_item": None,
                                 "name": "HAND2",
                                 "class": "common",
                                 "price": 1000,
-                                "str": 10,
-                                "vit": 10,
-                                "int": 10,
-                                "agi": 10,
-                                "fire": 10,
-                                "wind": 10,
-                                "water": 10,
-                                "earth": 10,
+                                "stats": {
+                                    "str": 10,
+                                    "vit": 10,
+                                    "int": 10,
+                                    "agi": 10,
+                                    "fire": 10,
+                                    "wind": 10,
+                                    "water": 10,
+                                    "earth": 10,
+                                    }
                                 }
                             }
                         }
@@ -340,18 +388,22 @@ class equip(commands.Cog):
                     {
                         "$set": {
                             "game.rpg.use.boots": {
-                                "id_item": "co001",
+                                "id_item": 0,
+                                "id_image": "co001",
+                                "set_item": None,
                                 "name": "BOOTS",
                                 "class": "common",
                                 "price": 1000,
-                                "str": 10,
-                                "vit": 10,
-                                "int": 10,
-                                "agi": 10,
-                                "fire": 10,
-                                "wind": 10,
-                                "water": 10,
-                                "earth": 10,
+                                "stats": {
+                                    "str": 10,
+                                    "vit": 10,
+                                    "int": 10,
+                                    "agi": 10,
+                                    "fire": 10,
+                                    "wind": 10,
+                                    "water": 10,
+                                    "earth": 10
+                                    }
                                 }
                             }
                         }

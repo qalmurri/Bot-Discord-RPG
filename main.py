@@ -15,10 +15,13 @@ async def setup_hook() -> None:
         'cogs.commands.profile',
         'cogs.commands.join',
         'cogs.commands.basic',
-        'rpg.commands.test_equip'
+        'rpg.commands.test_equip',
+        'rpg.activity.pve',
+        'rpg.activity.setting',
+        'rpg.activity.spawn'
         ]
     
     for extension in extensions:
         await bot.load_extension(extension)
 
-bot.run("OTY3MTcwODYxNTA3NDQwNjUw.Gt_s_3.ptw1JtxeYERmeoALBXiCwyPlPIIZ9c__boRBPY")
+bot.run("OTY3MTcwODYxNTA3NDQwNjUw.GzE3U0.I18axM_go6SLZCoSGumF7gediTWI5QrhIlV85A")

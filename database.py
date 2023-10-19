@@ -4,3 +4,4 @@ mc = AsyncIOMotorClient("mongodb+srv://magerpol:magerpol123@magerpol.nfwtjld.mon
 
 msg = mc["message"]
 player = mc["player"]
+setting = mc["setting"]
