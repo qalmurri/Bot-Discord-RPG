@@ -15,7 +15,11 @@ class setting(commands.Cog):
             await db.setting["guild"].insert_one(
                 {
                     "_id": interaction.guild.id,
-                    "channel_pve": channel_pve
+                    "pve": {
+                        "channel_id": channel_pve,
+                        "duration": 4
+                        }
+
                     }
                 )
             await interaction.response.send_message(f"channel pve sudah di atur {channel_pve}")
@@ -24,7 +28,10 @@ class setting(commands.Cog):
                 {"_id": interaction.guild.id},
                     {
                         "$set": {
-                            "channel_pve": channel_pve,
+                            "pve": {
+                                "channel_id": channel_pve,
+                                "duration": 4
+                                }
                             }
                         }
                     )
