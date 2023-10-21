@@ -61,8 +61,8 @@ class profile(commands.Cog):
                     check = player.get("game", {}).get("rpg", {})
                     if check is not None and check :
                         with Image.open("assets/rpg/profile/default.jpg") as a:
-                            username = interaction.user.name
-                            avatar = interaction.user.display_avatar
+                            username = member.name
+                            avatar = member.display_avatar
                             ava = Image.open(requests.get(avatar, stream=True).raw)
                             a.paste(ava.resize((64, 64)), (4, 24))
                             b = ImageDraw.Draw(a)

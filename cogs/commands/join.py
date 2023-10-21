@@ -33,8 +33,9 @@ class join(commands.Cog):
             await interaction.response.send_message("Kamu harus memilih gamenya")
         else:
             if select is None:
+                print(interaction.user.id)
                 if game.value == str(0):
-                    player = await db.player[f"{interaction.guild.id}"].find_one({"game.rpg.status": True})
+                    player = await db.player[f"{interaction.guild.id}"].find_one({"_id": interaction.user.id, "game.rpg.status": True})
                     if player is None:
                         await db.player[f"{interaction.guild.id}"].update_one(
                             {
