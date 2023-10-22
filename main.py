@@ -1,7 +1,9 @@
 import discord
 from discord.ext import commands
 
-import database as db
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 bot = commands.Bot(command_prefix=".", intents=discord.Intents.all())
 
@@ -26,4 +28,4 @@ async def setup_hook() -> None:
     for extension in extensions:
         await bot.load_extension(extension)
 
-bot.run("OTY3MTcwODYxNTA3NDQwNjUw.GzE3U0.I18axM_go6SLZCoSGumF7gediTWI5QrhIlV85A")
+bot.run(os.getenv("TOKEN"))

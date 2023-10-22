@@ -27,7 +27,7 @@ class spawn(commands.Cog):
                         "log": {},
                         },
                     "stats": {
-                        "hp": 1000,
+                        "hp": 300,
                         "mana": 1000,
                         }
                     }

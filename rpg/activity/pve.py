@@ -2,6 +2,7 @@ from discord.ext import commands
 import database as db
 import datetime
 from bson import ObjectId
+import asyncio
 
 class pve(commands.Cog):
     def __init__(self, bot):
@@ -93,8 +94,9 @@ class pve(commands.Cog):
                 else:
                     code_sum[code] = value
             for code, total_value in code_sum.items():
-
                 await message.channel.send(f"Total Damage:\n<@{code}>: {total_value}")
+
+                
                 await db.environment[str(message.guild.id)].delete_many({"_id": message.channel.id})
 
 async def setup(bot):

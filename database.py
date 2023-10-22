@@ -1,6 +1,10 @@
 from motor.motor_asyncio import AsyncIOMotorClient
 
-mc = AsyncIOMotorClient("mongodb+srv://magerpol:magerpol123@magerpol.nfwtjld.mongodb.net")
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+mc = AsyncIOMotorClient(os.getenv("URI"))
 
 msg = mc["message"]
 player = mc["player"]
