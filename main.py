@@ -1,6 +1,8 @@
 import discord
 from discord.ext import commands
 
+import database as db
+
 bot = commands.Bot(command_prefix=".", intents=discord.Intents.all())
 
 @bot.event

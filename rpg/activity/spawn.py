@@ -7,7 +7,6 @@ import database as db
 class spawn(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.last_message = None
 
     @app_commands.command(name="spawn", description="spawn di db")
     async def spawn(self, interaction:discord.Interaction):
