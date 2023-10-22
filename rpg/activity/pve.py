@@ -95,8 +95,6 @@ class pve(commands.Cog):
                     code_sum[code] = value
             for code, total_value in code_sum.items():
                 await message.channel.send(f"Total Damage:\n<@{code}>: {total_value}")
-
-                
                 await db.environment[str(message.guild.id)].delete_many({"_id": message.channel.id})
 
 async def setup(bot):
