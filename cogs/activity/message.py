@@ -1,5 +1,6 @@
 from discord.ext import commands
 import database as db
+import variable as v
 
 class message(commands.Cog):
     def __init__(self, bot):
@@ -18,6 +19,7 @@ class message(commands.Cog):
                 "msg": message.content,
             }
         ])
+        print(v.t001)
 
 async def setup(bot):
     await bot.add_cog(message(bot))
