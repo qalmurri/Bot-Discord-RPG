@@ -1,3 +1,4 @@
+import discord
 from discord.ext import commands
 import database as db
 import datetime
@@ -50,9 +51,12 @@ class pve(commands.Cog):
                             lobby = environment.get("lobby", {}).get("user", {}).get(str(message.author.id), None)
                             if lobby is None:
                                 await db.ENV20.update_one(
-                                    {"_id": message.guild.id}, {"$set": {f"lobby.user.{str(message.author.id)}": datetime.datetime.now()}}
-                                    )
-                                await message.channel.send(f"```c\n{message.author.name} bergabung untuk menyerang {environment_name}({environment_class})```")
+                                    {"_id": message.guild.id}, {"$set": {f"lobby.user.{str(message.author.id)}": datetime.datetime.now()}})
+                                
+                                embed = discord.Embed()
+                                embed.set_author(name=message.author.name + f" bergabung untuk menyerang {environment_name} ({environment_class})", icon_url=message.author.display_avatar)
+
+                                await message.channel.send(embed=embed)
                             else:
                                 await db.ENV20.update_one(
                                     {"status": "active"}, {
@@ -65,11 +69,11 @@ class pve(commands.Cog):
                                     {"_id": message.guild.id}, {"$set": {f"lobby.log.attacker.{message.author.id}_{ObjectId()}": head_str }}
                                     )
                                 
-                                if total_hp <= 1:
+                                if environment_hp <= 1:
                                     await message.channel.send(f"```c\nini adalah kemenangan kalian, yeay!```")
                                     await self.result_pve(message, environment)
                                 else:
-                                    await message.channel.send(f"```c\n{message.author.name} menyerang {environment_name}({environment_class}) dengan damage serangan {head_str}, Monster mempunyai {total_hp} hp```")
+                                    await message.channel.send(f"```c\n{message.author.name} menyerang {environment_name}({environment_class}) dengan damage serangan {head_str}, Monster mempunyai {environment_hp} hp```")
             else:
                 print("channel tidak di temukan")
         elif message.content  == "magic":
