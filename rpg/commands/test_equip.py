@@ -29,11 +29,11 @@ class equip(commands.Cog):
             ],
         )
     async def equip(self, interaction: discord.Interaction, item: typing.Optional[app_commands.Choice[str]] = None):
-        player = await db.player[f"{interaction.guild.id}"].find_one({"game.rpg.status": True})
+        player = await db.PLAYER_USER.find_one({"game.rpg.status": "active"})
         if player is None:
             await interaction.response.send_message("Kamu belum mempunyai game rpg")
         elif item.value == str(0):
-            await db.player[f"{interaction.guild.id}"].update_one(
+            await db.PLAYER_USER.update_one(
                 {
                     "_id": interaction.user.id
                     },
@@ -62,7 +62,7 @@ class equip(commands.Cog):
                     )
             await interaction.response.send_message("head sudah terpasang")
         elif item.value == str(1):
-            await db.player[f"{interaction.guild.id}"].update_one(
+            await db.PLAYER_USER.update_one(
                 {
                     "_id": interaction.user.id
                     },
@@ -91,7 +91,7 @@ class equip(commands.Cog):
                     )
             await interaction.response.send_message("necklace1 sudah terpasang")
         elif item.value == str(2):
-            await db.player[f"{interaction.guild.id}"].update_one(
+            await db.PLAYER_USER.update_one(
                 {
                     "_id": interaction.user.id
                     },
@@ -120,7 +120,7 @@ class equip(commands.Cog):
                     )
             await interaction.response.send_message("necklace2 sudah terpasang")
         elif item.value == str(3):
-            await db.player[f"{interaction.guild.id}"].update_one(
+            await db.PLAYER_USER.update_one(
                 {
                     "_id": interaction.user.id
                     },
@@ -149,7 +149,7 @@ class equip(commands.Cog):
                     )
             await interaction.response.send_message("body sudah terpasang")
         elif item.value == str(4):
-            await db.player[f"{interaction.guild.id}"].update_one(
+            await db.PLAYER_USER.update_one(
                 {
                     "_id": interaction.user.id
                     },
@@ -178,7 +178,7 @@ class equip(commands.Cog):
                     )
             await interaction.response.send_message("gloves1 sudah terpasang")
         elif item.value == str(5):
-            await db.player[f"{interaction.guild.id}"].update_one(
+            await db.PLAYER_USER.update_one(
                 {
                     "_id": interaction.user.id
                     },
@@ -207,7 +207,7 @@ class equip(commands.Cog):
                     )
             await interaction.response.send_message("gloves2 sudah terpasang")
         elif item.value == str(6):
-            await db.player[f"{interaction.guild.id}"].update_one(
+            await db.PLAYER_USER.update_one(
                 {
                     "_id": interaction.user.id
                     },
@@ -236,7 +236,7 @@ class equip(commands.Cog):
                     )
             await interaction.response.send_message("belt sudah terpasang")
         elif item.value == str(7):
-            await db.player[f"{interaction.guild.id}"].update_one(
+            await db.PLAYER_USER.update_one(
                 {
                     "_id": interaction.user.id
                     },
@@ -265,7 +265,7 @@ class equip(commands.Cog):
                     )
             await interaction.response.send_message("ring1 sudah terpasang")
         elif item.value == str(8):
-            await db.player[f"{interaction.guild.id}"].update_one(
+            await db.PLAYER_USER.update_one(
                 {
                     "_id": interaction.user.id
                     },
@@ -294,7 +294,7 @@ class equip(commands.Cog):
                     )
             await interaction.response.send_message("ring2 sudah terpasang")
         elif item.value == str(9):
-            await db.player[f"{interaction.guild.id}"].update_one(
+            await db.PLAYER_USER.update_one(
                 {
                     "_id": interaction.user.id
                     },
@@ -323,7 +323,7 @@ class equip(commands.Cog):
                     )
             await interaction.response.send_message("pants sudah terpasang")
         elif item.value == str(10):
-            await db.player[f"{interaction.guild.id}"].update_one(
+            await db.PLAYER_USER.update_one(
                 {
                     "_id": interaction.user.id
                     },
@@ -352,7 +352,7 @@ class equip(commands.Cog):
                     )
             await interaction.response.send_message("hand1 sudah terpasang")
         elif item.value == str(11):
-            await db.player[f"{interaction.guild.id}"].update_one(
+            await db.PLAYER_USER.update_one(
                 {
                     "_id": interaction.user.id
                     },
@@ -381,7 +381,7 @@ class equip(commands.Cog):
                     )
             await interaction.response.send_message("hand2 sudah terpasang")
         elif item.value == str(12):
-            await db.player[f"{interaction.guild.id}"].update_one(
+            await db.PLAYER_USER.update_one(
                 {
                     "_id": interaction.user.id
                     },
@@ -432,47 +432,47 @@ class equip(commands.Cog):
             ],
         )
     async def unequip(self, interaction: discord.Interaction, item: typing.Optional[app_commands.Choice[str]] = None):
-        player = await db.player[f"{interaction.guild.id}"].find_one({"game.rpg.status": True})
+        player = await db.PLAYER_USER.find_one({"game.rpg.status": "active"})
         if player is None:
             await interaction.response.send_message("Kamu belum mempunyai game rpg")
         elif item.value == str(0):
-            await db.player[f"{interaction.guild.id}"].update_one({"_id": interaction.user.id}, {"$unset": {"game.rpg.use.head": 1}})
+            await db.PLAYER_USER.update_one({"_id": interaction.user.id}, {"$unset": {"game.rpg.use.head": 1}})
             await interaction.response.send_message("head di lepas")
         elif item.value == str(1):
-            await db.player[f"{interaction.guild.id}"].update_one({"_id": interaction.user.id}, {"$unset": {"game.rpg.use.necklace1": 1}})
+            await db.PLAYER_USER.update_one({"_id": interaction.user.id}, {"$unset": {"game.rpg.use.necklace1": 1}})
             await interaction.response.send_message("necklace1 di lepas")
         elif item.value == str(2):
-            await db.player[f"{interaction.guild.id}"].update_one({"_id": interaction.user.id}, {"$unset": {"game.rpg.use.necklace2": 1}})
+            await db.PLAYER_USER.update_one({"_id": interaction.user.id}, {"$unset": {"game.rpg.use.necklace2": 1}})
             await interaction.response.send_message("necklace2 di lepas")
         elif item.value == str(3):
-            await db.player[f"{interaction.guild.id}"].update_one({"_id": interaction.user.id}, {"$unset": {"game.rpg.use.body": 1}})
+            await db.PLAYER_USER.update_one({"_id": interaction.user.id}, {"$unset": {"game.rpg.use.body": 1}})
             await interaction.response.send_message("body di lepas")
         elif item.value == str(4):
-            await db.player[f"{interaction.guild.id}"].update_one({"_id": interaction.user.id}, {"$unset": {"game.rpg.use.gloves1": 1}})
+            await db.PLAYER_USER.update_one({"_id": interaction.user.id}, {"$unset": {"game.rpg.use.gloves1": 1}})
             await interaction.response.send_message("gloves1 di lepas")
         elif item.value == str(5):
-            await db.player[f"{interaction.guild.id}"].update_one({"_id": interaction.user.id}, {"$unset": {"game.rpg.use.gloves2": 1}})
+            await db.PLAYER_USER.update_one({"_id": interaction.user.id}, {"$unset": {"game.rpg.use.gloves2": 1}})
             await interaction.response.send_message("gloves2 di lepas")
         elif item.value == str(6):
-            await db.player[f"{interaction.guild.id}"].update_one({"_id": interaction.user.id}, {"$unset": {"game.rpg.use.belt": 1}})
+            await db.PLAYER_USER.update_one({"_id": interaction.user.id}, {"$unset": {"game.rpg.use.belt": 1}})
             await interaction.response.send_message("belt di lepas")
         elif item.value == str(7):
-            await db.player[f"{interaction.guild.id}"].update_one({"_id": interaction.user.id}, {"$unset": {"game.rpg.use.ring1": 1}})
+            await db.PLAYER_USER.update_one({"_id": interaction.user.id}, {"$unset": {"game.rpg.use.ring1": 1}})
             await interaction.response.send_message("ring1 di lepas")
         elif item.value == str(8):
-            await db.player[f"{interaction.guild.id}"].update_one({"_id": interaction.user.id}, {"$unset": {"game.rpg.use.ring2": 1}})
+            await db.PLAYER_USER.update_one({"_id": interaction.user.id}, {"$unset": {"game.rpg.use.ring2": 1}})
             await interaction.response.send_message("ring2 di lepas")
         elif item.value == str(9):
-            await db.player[f"{interaction.guild.id}"].update_one({"_id": interaction.user.id}, {"$unset": {"game.rpg.use.pants": 1}})
+            await db.PLAYER_USER.update_one({"_id": interaction.user.id}, {"$unset": {"game.rpg.use.pants": 1}})
             await interaction.response.send_message("pants di lepas")
         elif item.value == str(10):
-            await db.player[f"{interaction.guild.id}"].update_one({"_id": interaction.user.id}, {"$unset": {"game.rpg.use.hand1": 1}})
+            await db.PLAYER_USER.update_one({"_id": interaction.user.id}, {"$unset": {"game.rpg.use.hand1": 1}})
             await interaction.response.send_message("hand1 di lepas")
         elif item.value == str(11):
-            await db.player[f"{interaction.guild.id}"].update_one({"_id": interaction.user.id}, {"$unset": {"game.rpg.use.hand2": 1}})
+            await db.PLAYER_USER.update_one({"_id": interaction.user.id}, {"$unset": {"game.rpg.use.hand2": 1}})
             await interaction.response.send_message("hand2 di lepas")
         elif item.value == str(12):
-            await db.player[f"{interaction.guild.id}"].update_one({"_id": interaction.user.id}, {"$unset": {"game.rpg.use.boots": 1}})
+            await db.PLAYER_USER.update_one({"_id": interaction.user.id}, {"$unset": {"game.rpg.use.boots": 1}})
             await interaction.response.send_message("boots di lepas")
         else:
             pass

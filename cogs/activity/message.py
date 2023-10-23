@@ -1,6 +1,5 @@
 from discord.ext import commands
 import database as db
-import variable as v
 
 class message(commands.Cog):
     def __init__(self, bot):
@@ -11,15 +10,17 @@ class message(commands.Cog):
         if message.author.bot:
             return 
 
-        await db.msg[f"{message.guild.id}"].insert_many([
+        await db.MESSAGE_USER.insert_many([
             {
                 "_id": message.id,
-                "_ch": message.channel.id,
-                "_au": message.author.id,
+                "Info": {
+                    "_ch": message.channel.id,
+                    "_au": message.author.id,
+                    "_gu": message.guild.id
+                    },
                 "msg": message.content,
             }
         ])
-        print(v.t001)
 
 async def setup(bot):
     await bot.add_cog(message(bot))

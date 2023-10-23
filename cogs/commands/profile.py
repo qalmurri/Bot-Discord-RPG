@@ -14,9 +14,9 @@ class profile(commands.Cog):
 
     @app_commands.command(name="set_profile", description="Setting Profile bio")
     async def set_profile(self, interaction: discord.Interaction, bio: str):
-        player = await db.player[f"{interaction.guild.id}"].find_one({"_id": interaction.user.id})
+        player = await db.PLAYER_USER.find_one({"_id": interaction.user.id})
         if player is None:
-            await db.player[f"{interaction.guild.id}"].insert_one(
+            await db.PLAYER_USER.insert_one(
                 {
                     "_id": interaction.user.id,
                     "profile": {
@@ -27,7 +27,7 @@ class profile(commands.Cog):
                 )
             await interaction.response.send_message(f"Yeay! Kamu sudah mengatur biomu, sekarang kamu bisa join Game dari server ini")
         else:
-            await db.player[f"{interaction.guild.id}"].update_one(
+            await db.PLAYER_USER.update_one(
                 {"_id": interaction.user.id},
                     {
                         "$set": {
@@ -36,16 +36,11 @@ class profile(commands.Cog):
                         }
                     )
             await interaction.response.send_message(f"Kamu sudah memperbarui bio kamu")
-        
+
     @app_commands.command(name="profile", description="Profile")
     @app_commands.describe(game="Refreshing")
-    @app_commands.choices(
-        game=[
-            app_commands.Choice(name="RPG", value="0"),
-            app_commands.Choice(name="Unknown", value="1")
-            ]
-        )
-    async def profile(self, interaction:discord.Interaction, member:discord.Member, game: typing.Optional[app_commands.Choice[str]] = None,):
+    @app_commands.choices(game=[app_commands.Choice(name="RPG", value="0")])
+    async def profile(self, interaction:discord.Interaction, member:discord.Member, game: typing.Optional[app_commands.Choice[str]] = None):
         if member is None and game is None:
             await interaction.response.send_message("ya kamu harus milih dulu dong dengan pilihan yang sudah tersedia")
         elif game is None:
@@ -54,7 +49,7 @@ class profile(commands.Cog):
             await interaction.response.send_message(f"Kamu harus memilih membernya terlebih dulu")
         else:
             if game.value == "0":
-                player = await db.player[f"{interaction.guild.id}"].find_one({"_id": member.id})
+                player = await db.PLAYER_USER.find_one({"_id": member.id})
                 if player is None:
                     await interaction.response.send_message("User belum set_profile")
                 else:
@@ -269,11 +264,10 @@ class profile(commands.Cog):
 
                             a.save(f"stats/rpg/profile/{interaction.guild.id}.jpg")
                             await interaction.response.send_message(file=discord.File(f"stats/rpg/profile/{interaction.guild.id}.jpg"))
-                            #await interaction.response.send_message("user sudah punya game rpg")
                     else:
                         await interaction.response.send_message("user belum punya game rpg")
-            elif game.value == "1":
-                await interaction.response.send_message("Unknown")
+            else:
+                pass
 
 async def setup(bot):
     await bot.add_cog(profile(bot))

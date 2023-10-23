@@ -10,9 +10,9 @@ class setting(commands.Cog):
 
     @app_commands.command(name="setting", description="setting")
     async def setting(self, interaction:discord.Interaction, channel_pve: str):
-        setting = await db.setting["guild"].find_one({"_id": interaction.guild.id})
+        setting = await db.GUILD.find_one({"_id": interaction.guild.id})
         if setting is None:
-            await db.setting["guild"].insert_one(
+            await db.GUILD.insert_one(
                 {
                     "_id": interaction.guild.id,
                     "pve": {
@@ -24,7 +24,7 @@ class setting(commands.Cog):
                 )
             await interaction.response.send_message(f"channel pve sudah di atur {channel_pve}")
         else:
-            await db.setting["guild"].update_one(
+            await db.GUILD.update_one(
                 {"_id": interaction.guild.id},
                     {
                         "$set": {
