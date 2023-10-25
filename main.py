@@ -15,13 +15,10 @@ async def on_ready():
 @bot.event
 async def setup_hook() -> None:
     extensions = [
-        'cogs.activity.message',
-        'cogs.commands.profile',
+        'cogs.commands.language',
+        'cogs.commands.register',
         'cogs.commands.join',
-        'rpg.commands.test_equip',
-        'rpg.activity.spawn',
-        'rpg.activity.setting',
-        'rpg.activity.pve',
+        'cogs.commands.profile'
         ]
     
     for extension in extensions:
