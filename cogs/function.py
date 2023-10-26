@@ -1,7 +1,7 @@
 from discord.ext import commands
 import json
 
-class load(commands.Cog):
+class load_cogs(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 

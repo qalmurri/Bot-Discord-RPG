@@ -2,7 +2,7 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 
-from cogs.function import load
+from cogs.function import load_cogs
 import database as db
 
 import datetime
@@ -18,7 +18,7 @@ class join(commands.Cog):
     async def join(self, interaction: discord.Interaction, game: typing.Optional[app_commands.Choice[str]] = None, select: typing.Optional[app_commands.Choice[str]] = None):
 
         guild_id = str(interaction.guild.id)
-        language =  load(self).language(guild_id)
+        language =  load_cogs(self).language(guild_id)
 
         if game is None and select is None:
             await interaction.response.send_message(language["game_select_is_none"])
@@ -104,7 +104,7 @@ class join(commands.Cog):
     async def on_interaction(self, interaction: discord.Interaction):
 
         guild_id = str(interaction.guild.id)
-        language =  load(self).language(guild_id)
+        language =  load_cogs(self).language(guild_id)
         
         data = interaction.data
         custom_id = data.get('custom_id')

@@ -2,7 +2,7 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 
-from cogs.function import load
+from cogs.function import load_cogs
 import database as db
 
 import datetime
@@ -15,7 +15,7 @@ class register(commands.Cog):
     async def register(self, interaction: discord.Interaction, about_me: str):
         
         guild_id = str(interaction.guild.id)
-        language =  load(self).language(guild_id)
+        language =  load_cogs(self).language(guild_id)
 
         player = await db.PLAYER_USER.find_one({"_id": interaction.user.id})
         if player is None:
