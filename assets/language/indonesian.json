@@ -1,14 +1,15 @@
 {
-    "change_language" : "Bot sekarang bahasa",
+    "change_language": "Bot sekarang bahasa",
     "register_first": "Register dulu",
-    "create_register" : "Kamu sudah berhasil menambahkan About Me.",
-    "update_register" : "About Me sudah berhasil di update.",
-    "game_select_is_none" : "Kamu harus memilih pilihan yang tersedia.",
-    "game_is_none" : "Kamu harus memilih gamenya.",
-    "account_not_exist" : "Akun tidak ada.",
-    "confirm_remove_rpg" : "Apakah kamu akan menghapus game RPG mu?",
+    "create_register": "Kamu sudah berhasil menambahkan About Me.",
+    "update_register": "About Me sudah berhasil di update.",
+    "game_select_is_none": "Kamu harus memilih pilihan yang tersedia.",
+    "game_is_none": "Kamu harus memilih gamenya.",
+    "account_not_exist": "Akun tidak ada.",
+    "confirm_remove_rpg": "Apakah kamu akan menghapus game RPG mu?",
     "remove_rpg": "Kamu sudah menghapus game RPG",
     "join_rpg": "Kamu bergabung",
-    "join_rpg_again": "Kamu bergabung game RPG pada"
-    
+    "join_rpg_again": "Kamu bergabung game RPG pada",
+    "member_game_is_none": "Kamu harus memilih pilihan yang tersedia.",
+    "member_is_none": "kamu harus memilih usernya dulu"
 }

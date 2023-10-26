@@ -13,9 +13,7 @@ class register(commands.Cog):
 
     @app_commands.command(name="register", description="Bot ini perlu register dulu, buat sebuah 'About Me' di perintah ini")
     async def register(self, interaction: discord.Interaction, about_me: str):
-        
-        guild_id = str(interaction.guild.id)
-        language =  load_cogs(self).language(guild_id)
+        language =  load_cogs(self).language(str(interaction.guild.id))
 
         player = await db.PLAYER_USER.find_one({"_id": interaction.user.id})
         if player is None:

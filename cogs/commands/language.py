@@ -14,17 +14,16 @@ class lang(commands.Cog):
     @app_commands.describe(name="choice language")
     @app_commands.choices(name=[app_commands.Choice(name="English", value="0"), app_commands.Choice(name="Indonesian", value="1")])
     async def set_language(self, interaction:discord.interactions, name: typing.Optional[app_commands.Choice[str]]):
+        language =  load_cogs(self).language(str(interaction.guild.id))
 
-        guild_id = str(interaction.guild.id)
-        language =  load_cogs(self).language(guild_id)
-        language_config = load_cogs(self).load_language(guild_id)
-
+        language_config = load_cogs(self).load_language(str(interaction.guild.id))
         if "language" in language_config:
             language_config["language"] = name.value
         else:
             language_config["language"] = name.value
             
-        load_cogs(self).save_language(language_config, guild_id)
+        load_cogs(self).save_language(language_config, str(interaction.guild.id))
+
         await interaction.response.send_message(language["change_language"] + f" {name.name}")
 
 async def setup(bot):

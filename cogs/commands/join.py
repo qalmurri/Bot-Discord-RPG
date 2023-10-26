@@ -16,9 +16,7 @@ class join(commands.Cog):
     @app_commands.describe(game="Refreshing", select="options")
     @app_commands.choices(game=[app_commands.Choice(name="RPG", value="0")], select=[app_commands.Choice(name="Delete", value="0")])
     async def join(self, interaction: discord.Interaction, game: typing.Optional[app_commands.Choice[str]] = None, select: typing.Optional[app_commands.Choice[str]] = None):
-
-        guild_id = str(interaction.guild.id)
-        language =  load_cogs(self).language(guild_id)
+        language =  load_cogs(self).language(str(interaction.guild.id))
 
         if game is None and select is None:
             await interaction.response.send_message(language["game_select_is_none"])
@@ -102,9 +100,7 @@ class join(commands.Cog):
 
     @commands.Cog.listener()
     async def on_interaction(self, interaction: discord.Interaction):
-
-        guild_id = str(interaction.guild.id)
-        language =  load_cogs(self).language(guild_id)
+        language =  load_cogs(self).language(str(interaction.guild.id))
         
         data = interaction.data
         custom_id = data.get('custom_id')

@@ -1,0 +1,1 @@
+Pengambilan fungsi untuk RPG

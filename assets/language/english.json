@@ -1,14 +1,15 @@
 {
-    "change_language" : "The bot is now in",
+    "change_language": "The bot is now in",
     "register_first": "Register first",
-    "create_register" : "Yeay! You have set your bio. Now you can join the game from this server.",
-    "update_register" : "About Me reupdate done!",
-    "game_select_is_none" : "You have to choose the available options.",
-    "game_is_none" : "You have to choose the game.",
-    "account_not_exist" : "Account does not exist.",
-    "confirm_remove_rpg" : "Are you going to delete your RPG game?",
+    "create_register": "Yeay! You have set your bio. Now you can join the game from this server.",
+    "update_register": "About Me reupdate done!",
+    "game_select_is_none": "You have to choose the available options.",
+    "game_is_none": "You have to choose the game.",
+    "account_not_exist": "Account does not exist.",
+    "confirm_remove_rpg": "Are you going to delete your RPG game?",
     "remove_rpg": "You have deleted the RPG game",
     "join_rpg": "You joined",
-    "join_rpg_again": "You join the RPG game on"
-    
+    "join_rpg_again": "You join the RPG game on",
+    "member_game_is_none": "You have to choose the available options.",
+    "member_is_none": "You have to choose the user first"
 }
