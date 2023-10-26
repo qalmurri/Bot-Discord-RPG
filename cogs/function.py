@@ -22,11 +22,11 @@ class load(commands.Cog):
             with open('config/' + guild_id + '.json', 'r') as file:
                 data = json.load(file)
                 if isinstance(data.get("language"), str):
-                    self.guild_language = data.get("language", "0")
+                    guild_language = data.get("language", "0")
         except FileNotFoundError:
-            self.guild_language = "0"
+            guild_language = "0"
 
-        file_language = "assets/language/english.json" if self.guild_language == "0" else "assets/language/indonesian.json"
+        file_language = "assets/language/english.json" if guild_language == "0" else "assets/language/indonesian.json"
         with open(file_language, 'r') as json_file:
-            self.language = json.load(json_file)
-        return self.language
+            language = json.load(json_file)
+        return language

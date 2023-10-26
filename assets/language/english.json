@@ -1,5 +1,13 @@
 {
-    "register": "Yeay! You have set your bio. Now you can join the game from this server.",
-    "finish_register": "About Me reupdate done!",
-    "change_language": "The bot is now in"
+    "create_register" : "Yeay! You have set your bio. Now you can join the game from this server.",
+    "update_register" : "About Me reupdate done!",
+    "change_language" : "The bot is now in",
+    "game_select_is_none" : "Kamu harus memilih pilihan yang tersedia.",
+    "game_is_none" : "Kamu harus memilih gamenya.",
+    "account_not_exist" : "Akun tidak ada.",
+    "confirm_remove_rpg" : "Apakah kamu akan menghapus game RPG mu?",
+    "register_first": "Register dulu",
+    "join_rpg": "Kamu bergabung",
+    "join_rpg_again": "Kamu bergabung game RPG pada",
+    "remove_rpg": "Kamu sudah menghapus game RPG"
 }

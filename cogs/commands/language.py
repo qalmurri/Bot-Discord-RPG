@@ -16,7 +16,7 @@ class lang(commands.Cog):
     async def set_language(self, interaction:discord.interactions, new_language: typing.Optional[app_commands.Choice[str]]):
 
         guild_id = str(interaction.guild.id)
-        self.language =  load(self).language(guild_id)
+        language =  load(self).language(guild_id)
         language_config = load(self).load_language(guild_id)
 
         if "language" in language_config:
@@ -25,7 +25,7 @@ class lang(commands.Cog):
             language_config["language"] = new_language.value
             
         load(self).save_language(language_config, guild_id)
-        await interaction.response.send_message(self.language["change_language"] + f" {new_language.name}")
+        await interaction.response.send_message(language["change_language"] + f" {new_language.name}")
 
 async def setup(bot):
     await bot.add_cog(lang(bot))

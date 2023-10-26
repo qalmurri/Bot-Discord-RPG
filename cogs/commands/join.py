@@ -2,6 +2,7 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 
+from cogs.function import load
 import database as db
 
 import datetime
@@ -15,14 +16,18 @@ class join(commands.Cog):
     @app_commands.describe(game="Refreshing", select="options")
     @app_commands.choices(game=[app_commands.Choice(name="RPG", value="0")], select=[app_commands.Choice(name="Delete", value="0")])
     async def join(self, interaction: discord.Interaction, game: typing.Optional[app_commands.Choice[str]] = None, select: typing.Optional[app_commands.Choice[str]] = None):
+
+        guild_id = str(interaction.guild.id)
+        language =  load(self).language(guild_id)
+
         if game is None and select is None:
-            await interaction.response.send_message("Ya gak bisa dong hmm")
+            await interaction.response.send_message(language["game_select_is_none"])
         elif game is None:
-            await interaction.response.send_message("Kamu harus memilih gamenya")
+            await interaction.response.send_message(language["game_is_none"])
         else:
             if select is None:
                 if game.value == str(0):
-                    await self.join_rpg(interaction)
+                    await self.join_rpg(interaction, language)
                 else:
                     pass
             else:
@@ -30,14 +35,14 @@ class join(commands.Cog):
                     if game.value == str(0):
                         player = await db.PLAYER_USER.find_one({"game.rpg.status": "active"})
                         if player is None:
-                            await interaction.response.send_message("Kamu belum buat akun woi!")
+                            await interaction.response.send_message(language["account_not_exist"])
                         else:
                             remove_rpg = discord.ui.View().add_item(discord.ui.Button(label="Ya", custom_id="remove_rpg"))
-                            await interaction.response.send_message("Apakah kamu akan menghapus game RPG mu?", view=remove_rpg)
+                            await interaction.response.send_message(language["confirm_remove_rpg"], view=remove_rpg)
                     else:
                         pass
     
-    async def join_rpg(self, interaction):
+    async def join_rpg(self, interaction, language):
         player = await db.PLAYER_USER.find_one({"_id": interaction.user.id, "game.rpg.status": "active"})
         if player is None:
             await db.PLAYER_USER.update_one(
@@ -86,28 +91,32 @@ class join(commands.Cog):
 
             check = await db.PLAYER_USER.find_one({"_id": interaction.user.id})
             if check is None:
-                await interaction.response.send_message("Set your profile first here `/set_profile`")
+                await interaction.response.send_message(language["register_first"])
                 return
 
-            await interaction.response.send_message("You joined")
+            await interaction.response.send_message(language["join_rpg"])
         else:
             join_date = player["game"]["rpg"]["jdate"]
             convert_join_date = join_date.strftime("%d/%m/%Y")
-            await interaction.response.send_message(f"You have joined the RPG on {convert_join_date}")
+            await interaction.response.send_message(language["join_rpg_again"] + f" {convert_join_date}")
 
     @commands.Cog.listener()
     async def on_interaction(self, interaction: discord.Interaction):
+
+        guild_id = str(interaction.guild.id)
+        language =  load(self).language(guild_id)
+        
         data = interaction.data
         custom_id = data.get('custom_id')
         if custom_id is not None:
             if custom_id == "remove_rpg":
-                await self.remove_rpg(interaction)
+                await self.remove_rpg(interaction, language)
             else:
                 await interaction.response.send_message("custom_id tidak ditemukan")
 
-    async def remove_rpg(self, interaction):
+    async def remove_rpg(self, interaction, language):
         await db.PLAYER_USER.update_one({"_id": interaction.user.id}, {"$unset": {"game.rpg": {}}})
-        await interaction.response.send_message("Game RPGmu sudah terhapus")
+        await interaction.response.send_message(language["remove_rpg"])
 
 async def setup(bot):
     await bot.add_cog(join(bot))

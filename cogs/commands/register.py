@@ -15,7 +15,7 @@ class register(commands.Cog):
     async def register(self, interaction: discord.Interaction, about_me: str):
         
         guild_id = str(interaction.guild.id)
-        self.language =  load(self).language(guild_id)
+        language =  load(self).language(guild_id)
 
         player = await db.PLAYER_USER.find_one({"_id": interaction.user.id})
         if player is None:
@@ -33,7 +33,7 @@ class register(commands.Cog):
                     "game": {}
                     }
                 )
-            await interaction.response.send_message(self.language["register"])
+            await interaction.response.send_message(language["create_register"])
         else:
             await db.PLAYER_USER.update_one(
                 {"_id": interaction.user.id},
@@ -44,7 +44,7 @@ class register(commands.Cog):
                             }
                         }
                     )
-            await interaction.response.send_message(self.language["finish_register"])
+            await interaction.response.send_message(language["update_register"])
 
 async def setup(bot):
     await bot.add_cog(register(bot))
