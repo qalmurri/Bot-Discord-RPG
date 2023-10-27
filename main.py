@@ -19,9 +19,11 @@ async def setup_hook() -> None:
         'cogs.commands.basic',
         'cogs.commands.language',
         'cogs.commands.register',
-        'cogs.commands.join',
         'cogs.commands.profile',
+        'cogs.commands.join',
         'rpg.commands.test_equip',
+        'rpg.commands.pve',
+        'rpg.activity.spawn',
         ]
     
     for extension in extensions:

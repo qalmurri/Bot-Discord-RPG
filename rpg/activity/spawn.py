@@ -1,21 +1,28 @@
 import discord
 from discord.ext import commands
-from discord import app_commands
+
+import variable as var
 
 import database as db
+import asyncio
+
+from datetime import datetime, timedelta
+import random
 
 class spawn(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.bot.loop.create_task(self.spawn())
 
-    @app_commands.command(name="spawn", description="spawn di db")
-    async def spawn(self, interaction:discord.Interaction):
-        environment = await db.ENV20.find_one({"_id": interaction.guild.id})
-        if environment is None:
-            await db.ENV20.insert_one(
-                {
-                    "_id": interaction.guild.id,
-                    "id_image": None,
+
+
+    async def spawn(self):
+        while not self.bot.is_closed():
+            expire_time = datetime.utcnow() + timedelta(seconds=8)
+            random_number = random.randint(1, 100)
+            Environment = {
+                        "number":random_number,
+                    "id_image": "co001",
                     "status": "active",
                     "profile": {
                         "name": "jelangkung",
@@ -29,13 +36,25 @@ class spawn(commands.Cog):
                     "stats": {
                         "hp": 300,
                         "mana": 1000,
-                        }
+                        },
+                        "expire_at": expire_time
                     }
-                )
-            await interaction.response.send_message(f"Monster sudah ada di db, silahkan ketik attack untuk melihat reaksinya")
-        else:
-            pass
+            
+            cursor = db.SPAWN.find({}, {"channel_id": 1, "pve": 1})
+            async for document in cursor:
+                pve = document.get("pve")
+                if pve is None:
+                    channel_id = document.get("channel_id")
+                    channel = self.bot.get_channel(int(channel_id))
+                    print(channel)
+                    if channel:
+                        await db.SPAWN.update_many({}, {"$set": {"pve": Environment}})
 
+                        await channel.send(Environment)
+                else:
+                    print("tidak ada update")
+
+            await asyncio.sleep(var.spawn_environment)
 
 async def setup(bot):
     await bot.add_cog(spawn(bot))

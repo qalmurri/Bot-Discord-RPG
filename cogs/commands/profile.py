@@ -8,7 +8,6 @@ from rpg.commands.interaction.profile import profile_rpg
 
 import typing
 
-
 class profile(commands.Cog):
     def __init__(self, bot):
         self.bot = bot

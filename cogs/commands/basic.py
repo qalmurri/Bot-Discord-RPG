@@ -23,9 +23,5 @@ class basic(commands.Cog):
         view.add_item(discord.ui.Button(label="RPG", custom_id="rpg"))
         await interaction.response.send_message(embed=embed, view=view, ephemeral=True, delete_after=20)
 
-    @app_commands.command(name="avatar", description="Get user avatar")
-    async def avatar(self, interaction:discord.Interaction, member:discord.Member):
-        await interaction.response.send_message(member.display_avatar)
-
 async def setup(bot):
     await bot.add_cog(basic(bot))

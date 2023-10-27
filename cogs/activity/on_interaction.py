@@ -3,7 +3,7 @@ from discord.ext import commands
 
 from cogs.function import load_cogs
 from cogs.commands.interaction.help import basic, rpg
-from rpg.commands.remove_rpg import remove_rpg
+from rpg.commands.interaction.remove_rpg import remove_rpg
 
 
 class interaction_id(commands.Cog):
