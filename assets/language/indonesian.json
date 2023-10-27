@@ -1,4 +1,9 @@
 {
+    "commands_basic": "> `/help`\nPerintah untuk melihat apa saja perintah yang ada di Bot ini.\n> `/language`\nPerintah khusus untuk mengganti bahasa pesan dari Bot.\n> `/profile`\n...\n",
+    "hello": "Hai!",
+    "help": "Bantuan perintah untuk `Bot Magerpol` bisa kamu dapatkan dibawah ini.",
+    "latency": "Latensi",
+    "ms": "milidetik",
     "change_language": "Bot sekarang bahasa",
     "register_first": "Register dulu",
     "create_register": "Kamu sudah berhasil menambahkan About Me.",

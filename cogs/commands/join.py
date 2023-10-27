@@ -98,21 +98,5 @@ class join(commands.Cog):
             convert_join_date = join_date.strftime("%d/%m/%Y")
             await interaction.response.send_message(language["join_rpg_again"] + f" {convert_join_date}")
 
-    @commands.Cog.listener()
-    async def on_interaction(self, interaction: discord.Interaction):
-        language =  load_cogs(self).language(str(interaction.guild.id))
-        
-        data = interaction.data
-        custom_id = data.get('custom_id')
-        if custom_id is not None:
-            if custom_id == "remove_rpg":
-                await self.remove_rpg(interaction, language)
-            else:
-                await interaction.response.send_message("custom_id tidak ditemukan")
-
-    async def remove_rpg(self, interaction, language):
-        await db.PLAYER_USER.update_one({"_id": interaction.user.id}, {"$unset": {"game.rpg": {}}})
-        await interaction.response.send_message(language["remove_rpg"])
-
 async def setup(bot):
     await bot.add_cog(join(bot))

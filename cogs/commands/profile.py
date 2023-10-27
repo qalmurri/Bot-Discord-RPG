@@ -4,7 +4,7 @@ from discord.ext import commands
 
 import database as db
 from cogs.function import load_cogs
-from rpg.commands.profile import profile_rpg
+from rpg.commands.interaction.profile import profile_rpg
 
 import typing
 

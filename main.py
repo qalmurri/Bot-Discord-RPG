@@ -15,6 +15,8 @@ async def on_ready():
 @bot.event
 async def setup_hook() -> None:
     extensions = [
+        'cogs.activity.on_interaction',
+        'cogs.commands.basic',
         'cogs.commands.language',
         'cogs.commands.register',
         'cogs.commands.join',

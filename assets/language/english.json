@@ -1,4 +1,9 @@
 {
+    "commands_basic": "> `/help`\nCommands to see what commands are in this Bot.\n> `/language`\nSpecial command to change the language of messages from bot.\n> `/profile`\n...\n",
+    "hello": "Hello!",
+    "help": "You can get command assistance for the `Magerpol Bot` below.",
+    "latency": "Latency",
+    "ms": "milisecond",
     "change_language": "The bot is now in",
     "register_first": "Register first",
     "create_register": "Yeay! You have set your bio. Now you can join the game from this server.",

@@ -1,0 +1,1 @@
+Asset untuk bot ini
