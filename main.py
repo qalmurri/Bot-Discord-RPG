@@ -24,6 +24,7 @@ async def setup_hook() -> None:
         'rpg.commands.test_equip',
         'rpg.commands.pve',
         'rpg.activity.spawn',
+        'rpg.activity.pve',
         ]
     
     for extension in extensions:

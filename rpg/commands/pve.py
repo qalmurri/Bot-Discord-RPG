@@ -4,7 +4,7 @@ from discord.ext import commands
 
 import database as db
 
-class pve(commands.Cog):
+class pve_activity(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -34,20 +34,20 @@ class pve(commands.Cog):
                 await interaction.response.send_message(f"channel pve sudah di perbarui {channel_pve}")
         else:
             environment = await db.SPAWN.find_one({"_id": interaction.guild.id})
-            data_env = environment.get("pve", {})
-            profile_env = data_env.get("profile", {})
+            pve = environment.get("pve", {})
+            profile_env = pve.get("profile", {})
+            stats_env = pve.get("stats", {})
 
-            id_image, status = (data_env.get(key, 0) for key in ("id_image", "status"))
-            name_env, class_env, desc_env  = (profile_env.get(key, 0) for key in ("name", "class", "description"))
-
-            print(id_image)
+            id_image, status = (pve.get(key, 0) for key in ("id_image", "status"))
+            name_env, desc_env  = (profile_env.get(key, 0) for key in ("name", "description"))
+            hp_env, mana_env  = (stats_env.get(key, 0) for key in ("hp", "mana"))
 
             embed = discord.Embed(title=name_env, description=desc_env)
-            embed.set_thumbnail(url="https://wiki.dfo-world.com/images/2/23/AdaptingJagos.gif")
+            embed.add_field(name="Stats", value=f"HP: {hp_env}\nMana: {mana_env}", inline=False)
+            embed.add_field(name="Lobby", value="username:\nusername:\nusername:\nusername:\n", inline=False)
    
             await interaction.response.send_message(embed=embed)
 
 
 async def setup(bot):
-    await bot.add_cog(pve(bot))
-
+    await bot.add_cog(pve_activity(bot))

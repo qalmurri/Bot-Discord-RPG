@@ -8,5 +8,5 @@ async def basic(self, interaction, language):
 
     await interaction.response.send_message(embed=embed, ephemeral=True)
     
-async def rpg(interaction):
+async def rpg(interaction, lnaguage):
     await interaction.response.send_message("buton rpg")
