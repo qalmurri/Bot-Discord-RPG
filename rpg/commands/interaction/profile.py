@@ -1,4 +1,7 @@
 import discord
+
+from cogs.activity.logging import logging
+
 from PIL import Image, ImageDraw, ImageFont
 import requests
 
@@ -212,3 +215,4 @@ async def profile_rpg(interaction, member, player):
         a.save(f"stats/rpg/profile/{interaction.guild.id}.jpg")
 
         await interaction.response.send_message(file=discord.File(f"stats/rpg/profile/{interaction.guild.id}.jpg"))
+        logging.info(f"{interaction.guild.id}/{interaction.channel.id}/{interaction.id}: /profile name: {member.id} game: RPG")

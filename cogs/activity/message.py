@@ -1,4 +1,6 @@
+import discord
 from discord.ext import commands
+
 import database as db
 
 class message(commands.Cog):

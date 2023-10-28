@@ -40,7 +40,7 @@ class load_rpg(commands.Cog):
                         "log": {},
                         },
                     "stats": {
-                        "hp": 300,
+                        "hp": 100,
                         "mana": 1000,
                         },
                         "expire_at": expire_time
@@ -61,7 +61,7 @@ class load_rpg(commands.Cog):
                         "log": {},
                         },
                     "stats": {
-                        "hp": 300,
+                        "hp": 100,
                         "mana": 1000,
                         },
                         "expire_at": expire_time

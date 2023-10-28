@@ -2,7 +2,9 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 
+import variable  as var
 from cogs.function import load_cogs
+from cogs.activity.logging import logging
 
 class basic(commands.Cog):
     def __init__(self, bot):
@@ -11,17 +13,17 @@ class basic(commands.Cog):
     @app_commands.command(name="help", description="Magerpol Help")
     async def help(self, interaction:discord.Interaction):
         language =  load_cogs(self).language(str(interaction.guild.id))
-        
-        embed = discord.Embed(description=language["help"])
-        embed.set_author(name=language["hello"] + " " + interaction.user.name, icon_url=interaction.user.display_avatar)
-
         latency = round(self.bot.latency * 1000)
+        
+        embed = discord.Embed(description=f"```\n{language['help']}```")
         embed.set_footer(text=language["latency"] + " " + str(latency) + language["ms"])
 
         view = discord.ui.View()
         view.add_item(discord.ui.Button(label="Basic", custom_id="basic"))
         view.add_item(discord.ui.Button(label="RPG", custom_id="rpg"))
-        await interaction.response.send_message(embed=embed, view=view, ephemeral=True, delete_after=20)
+        
+        await interaction.response.send_message(embed=embed, view=view, ephemeral=var.help_ephemeral, delete_after=var.help_delete)
+        logging.info(f"{interaction.guild.id}/{interaction.channel.id}/{interaction.id}: /help")
 
 async def setup(bot):
     await bot.add_cog(basic(bot))

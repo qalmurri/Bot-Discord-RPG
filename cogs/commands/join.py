@@ -2,8 +2,8 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 
-from cogs.function import load_cogs
 import database as db
+from cogs.function import load_cogs
 
 import datetime
 import typing
@@ -20,6 +20,7 @@ class join(commands.Cog):
 
         if game is None and select is None:
             await interaction.response.send_message(language["game_select_is_none"])
+            
         elif game is None:
             await interaction.response.send_message(language["game_is_none"])
         else:

@@ -1,14 +1,18 @@
 import discord
 from discord.ext import commands
+
 import database as db
+import variable as var
+
 import datetime
 from bson import ObjectId
 
 class pve_commands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-
+    
     @commands.command(case_insensitive=True)
+    @commands.cooldown(1, var.attack_cooldown, commands.BucketType.user)
     async def attack(self, ctx):
         guild = await db.SPAWN.find_one({"_id": ctx.guild.id})
         channel = guild.get("channel_id", {})
@@ -44,7 +48,6 @@ class pve_commands(commands.Cog):
                         total_hp = environment_hp - head_str
 
                         lobby = pve.get("lobby", {}).get("user", {}).get(str(ctx.author.id), None)
-                        print(pve)
                         if lobby is None:
                             await db.SPAWN.update_one(
                                     {"_id": ctx.guild.id}, {"$set": {f"pve.lobby.user.{str(ctx.author.id)}": datetime.datetime.now()}})
@@ -54,12 +57,53 @@ class pve_commands(commands.Cog):
 
                             await  ctx.message.channel.send(embed=embed)
                         else:
-                            print("player menyerang monster")
-                                
+                            await db.SPAWN.update_one(
+                                {"pve.status": "active"}, {
+                                    "$set": {
+                                        "pve.stats.hp": total_hp,
+                                        }
+                                    }
+                                )
+                            await db.SPAWN.update_one(
+                                {"_id": ctx.guild.id}, {"$set": {f"pve.lobby.log.attacker.{ctx.author.id}_{ObjectId()}": head_str }}
+                                )
+                            
+                            if environment_hp <= 1:
+                                await ctx.channel.send(f"```c\nini adalah kemenangan kalian, yeay!```")
+                                await self.result_pve(ctx, pve)
+                            else:
+                                await ctx.channel.send(f"```c\n{ctx.author.name} menyerang {environment_name}({environment_class}) dengan damage serangan {head_str}, Monster mempunyai {total_hp} hp```")
+        else:
+            print("channel tidak ada")
 
+    @commands.Cog.listener()
+    async def on_command_error(self, ctx, error):
+        if isinstance(error, commands.CommandNotFound):
+            pass
 
-        
-        #await ctx.send(f"{ctx.author.mention} menyerang!")
+        elif isinstance(error, commands.CommandOnCooldown):
+            await ctx.message.delete()
+            await ctx.send(f"This command is on cooldown for another " + str("%.2f" % error.retry_after) + " seconds!", delete_after=4)
+
+    async def result_pve(self, ctx, pve):
+        environment_attacker = pve.get("lobby", {}).get("log", {}).get("attacker", {})
+        if isinstance(environment_attacker, dict):
+            code_sum = {}
+            for key, value in environment_attacker.items():
+                code = key.split("_")[0]
+                if code in code_sum:
+                    code_sum[code] += value
+                else:
+                    code_sum[code] = value
+
+            total_damage_message = ""
+            for code, total_value in code_sum.items():
+                total_damage_message += f"<@{code}>: {total_value}\n"
+
+            await ctx.channel.send(total_damage_message)
+            await db.SPAWN.update_one(
+                    {"_id": ctx.guild.id}, {"$set": {"pve": None, }}
+                    )
 
 async def setup(bot):
     await bot.add_cog(pve_commands(bot))
