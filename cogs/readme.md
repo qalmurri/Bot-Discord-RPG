@@ -1,1 +1,0 @@
-pengambilan fungsi untuk System Bot
