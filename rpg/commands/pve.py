@@ -10,35 +10,35 @@ class pve_activity(commands.Cog):
         self.bot = bot
 
     @app_commands.command(name="pve", description="setting")
-    async def pve(self, interaction:discord.Interaction, channel_pve: str = None):
-        if channel_pve is not None:
+    async def pve(self, interaction:discord.Interaction, channel: str = None):
+        if channel is not None:
             setting = await db.SPAWN.find_one({"_id": interaction.guild.id})
 
             if setting is None:
                 await db.SPAWN.insert_one(
                     {
                         "_id": interaction.guild.id,
-                        "channel_id": channel_pve,
+                        "channel_id": channel,
                         "pve":None,
                         }
                     )
                 
-                await interaction.response.send_message(f"channel pve sudah di atur {channel_pve}")
-                logging.info(f"{interaction.guild.id}/{interaction.channel.id}/{interaction.id}: Create channel PVE {channel_pve}")
+                await interaction.response.send_message(f"channel pve sudah di atur {channel}")
+                logging.info(f"{interaction.guild.id}/{interaction.channel.id}/{interaction.id}: Create channel PVE {channel}")
 
             else:
                 await db.SPAWN.update_one(
                     {"_id": interaction.guild.id},
                         {
                             "$set": {
-                                "channel_id": channel_pve,
+                                "channel_id": channel,
                                 "pve":None,
                                 }
                             }
                         )
                 
-                await interaction.response.send_message(f"channel pve sudah di perbarui {channel_pve}")
-                logging.info(f"{interaction.guild.id}/{interaction.channel.id}/{interaction.id}: Update channel PVE {channel_pve}")
+                await interaction.response.send_message(f"channel pve sudah di perbarui {channel}")
+                logging.info(f"{interaction.guild.id}/{interaction.channel.id}/{interaction.id}: Update channel PVE {channel}")
 
         else:
             environment = await db.SPAWN.find_one({"_id": interaction.guild.id})
@@ -70,6 +70,7 @@ class pve_activity(commands.Cog):
                 embed = discord.Embed(title=name_env, description=desc_env)
                 embed.add_field(name="Stats", value=f"HP: {hp_env}\nMana: {mana_env}", inline=False)
                 embed.add_field(name="Attacker Damage", value=total_damage_message, inline=False)
+                embed.set_thumbnail(url="https://wiki.dfo-world.com/images/2/23/AdaptingJagos.gif")
     
                 await interaction.response.send_message(embed=embed)
             else:

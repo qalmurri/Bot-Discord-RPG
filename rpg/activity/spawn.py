@@ -1,3 +1,4 @@
+import discord
 from discord.ext import commands
 
 import database as db
@@ -28,11 +29,19 @@ class spawn(commands.Cog):
                         guild = document.get("_id")
                         Environment = load_rpg(self).spawn_environment(str(guild))
                         expire = Environment.get("expire_at")
+                        name = Environment['profile']['name']
+                        description = Environment['profile']['description']
+                        hp = Environment['stats']['hp']
+                        mana = Environment['stats']['mana']
 
                         await db.SPAWN.update_many({"pve": None}, {"$set": {"pve": Environment}})
                         
-                        await channel.send(expire)
-                        logging.info(f"Data Environment dikirim ke channel {channel.id} - expired_at: {expire}")
+                        embed = discord.Embed(title=name, description=description)
+                        embed.add_field(name="Stats", value=f"HP: {hp}\nMana: {mana}", inline=False)
+                        embed.set_thumbnail(url="https://wiki.dfo-world.com/images/2/23/AdaptingJagos.gif")
+                        
+                        await channel.send(embed=embed)
+                        logging.info(f"{name} ({hp}/{mana}) Spawn {channel.id}. Expired at {expire}")
 
                 if pve is not None:
                     channel = self.bot.get_channel(int(document.get("channel_id")))
@@ -43,7 +52,7 @@ class spawn(commands.Cog):
 
                         if expired_date < current_time:
                             await db.SPAWN.update_many({"pve.expire_at": {"$lt": current_time}}, {"$set": {"pve": None}})
-                            logging.info(f"Data Environment expired_date {channel.id}")
+                            logging.info(f"Spawn {channel.id}. Expired date")
 
                 else:
                     pass

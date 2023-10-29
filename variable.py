@@ -1,7 +1,7 @@
 #gak ngerti
-spawn_environment = 1
+spawn_environment = 10
 expired_environment = 5 #minutes
-attack_cooldown = 10
+attack_cooldown = 4
 
 #cogs\commands\basic
 #help

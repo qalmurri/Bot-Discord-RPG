@@ -3,6 +3,7 @@ from discord.ext import commands
 
 import database as db
 import variable as var
+from cogs.activity.logging import logging
 
 import datetime
 from bson import ObjectId
@@ -56,6 +57,7 @@ class pve_commands(commands.Cog):
                             embed.set_author(name=ctx.author.name + f" bergabung untuk menyerang {environment_name} ({environment_class})", icon_url=ctx.author.display_avatar)
 
                             await  ctx.message.channel.send(embed=embed)
+                            logging.info(f"{ctx.author.name} joined {environment_name}")
                         else:
                             await db.SPAWN.update_one(
                                 {"pve.status": "active"}, {
@@ -73,6 +75,7 @@ class pve_commands(commands.Cog):
                                 await self.result_pve(ctx, pve)
                             else:
                                 await ctx.channel.send(f"```c\n{ctx.author.name} menyerang {environment_name}({environment_class}) dengan damage serangan {head_str}, Monster mempunyai {total_hp} hp```")
+                                logging.info(f"{ctx.author.name} .attack {environment_name}")
         else:
             print("channel tidak ada")
 
