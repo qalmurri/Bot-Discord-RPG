@@ -1,1 +1,0 @@
-Language dari bot ini
