@@ -1,1 +1,0 @@
-font untuk bot ini
