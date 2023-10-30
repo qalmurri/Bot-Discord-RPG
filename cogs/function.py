@@ -5,28 +5,34 @@ class load_cogs(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    def load_language(self, guild_id):
+    def load_language(self, guild):
         try:
-            with open('config/' + guild_id + '.json', 'r') as file:
+            with open('config/' + guild + '.json', 'r') as file:
                 language_config = json.load(file)
         except FileNotFoundError:
             language_config = {}
         return language_config
 
-    def save_language(self, language_config, guild_id):
-        with open('config/' + guild_id + '.json', 'w') as file:
+    def save_language(self, language_config, guild):
+        with open('config/' + guild + '.json', 'w') as file:
             json.dump(language_config, file)
 
-    def language(self, guild_id):
+    def config(self, guild):
         try:
-            with open('config/' + guild_id + '.json', 'r') as file:
+            with open('config/' + guild + '.json', 'r') as file:
                 data = json.load(file)
                 if isinstance(data.get("language"), str):
-                    guild_language = data.get("language", "0")
+                    language = data.get("language", "0")
         except FileNotFoundError:
-            guild_language = "0"
+            language = "0"
 
-        file_language = "assets/language/english.json" if guild_language == "0" else "assets/language/indonesian.json"
-        with open(file_language, 'r') as json_file:
-            language = json.load(json_file)
         return language
+
+    def language_commands(self, guild):
+        language = self.config(guild)
+        directory = "assets/language"
+        file_language = f"{directory}/english.json" if language == "0" else f"{directory}/indonesian.json"
+        
+        with open(file_language, 'r') as json_file:
+            language_commands = json.load(json_file)
+        return language_commands

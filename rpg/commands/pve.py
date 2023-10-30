@@ -41,22 +41,22 @@ class pve_activity(commands.Cog):
                 logging.info(f"{interaction.guild.id}/{interaction.channel.id}/{interaction.id}: Update channel PVE {channel}")
 
         else:
-            environment = await db.SPAWN.find_one({"_id": interaction.guild.id})
+            enemy = await db.SPAWN.find_one({"_id": interaction.guild.id})
 
-            if environment is not None:
-                pve = environment.get("pve", {})
-                profile_env = pve.get("profile", {})
-                stats_env = pve.get("stats", {})
+            if enemy is not None:
+                pve = enemy.get("pve", {})
+                profile_enemy = pve.get("profile", {})
+                bar_enemy = pve.get("bar", {})
 
                 id_image, status = (pve.get(key, 0) for key in ("id_image", "status"))
-                name_env, desc_env  = (profile_env.get(key, 0) for key in ("name", "description"))
-                hp_env, mana_env  = (stats_env.get(key, 0) for key in ("hp", "mana"))
+                name_env, desc_env  = (profile_enemy.get(key, 0) for key in ("name", "description"))
+                hp_env, mana_env  = (bar_enemy.get(key, 0) for key in ("hp", "mana"))
 
-                environment_attacker = pve.get("lobby", {}).get("log", {}).get("attacker", {})
+                enemy_attacker = pve.get("lobby", {}).get("log", {}).get("attacker", {})
                 
-                if isinstance(environment_attacker, dict):
+                if isinstance(enemy_attacker, dict):
                     code_sum = {}
-                    for key, value in environment_attacker.items():
+                    for key, value in enemy_attacker.items():
                         code = key.split("_")[0]
                         if code in code_sum:
                             code_sum[code] += value
@@ -68,14 +68,13 @@ class pve_activity(commands.Cog):
                         total_damage_message += f"<@{code}>: {total_value}\n"
 
                 embed = discord.Embed(title=name_env, description=desc_env)
-                embed.add_field(name="Stats", value=f"HP: {hp_env}\nMana: {mana_env}", inline=False)
+                embed.add_field(name="Bar", value=f"HP: {hp_env}\nMana: {mana_env}", inline=False)
                 embed.add_field(name="Attacker Damage", value=total_damage_message, inline=False)
                 embed.set_thumbnail(url="https://wiki.dfo-world.com/images/2/23/AdaptingJagos.gif")
     
                 await interaction.response.send_message(embed=embed)
             else:
                 await interaction.response.send_message("belum set channel pve")
-
 
 async def setup(bot):
     await bot.add_cog(pve_activity(bot))

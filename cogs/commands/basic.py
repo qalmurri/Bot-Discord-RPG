@@ -12,7 +12,7 @@ class basic(commands.Cog):
 
     @app_commands.command(name="help", description="Magerpol Help")
     async def help(self, interaction:discord.Interaction):
-        language =  load_cogs(self).language(str(interaction.guild.id))
+        language =  load_cogs(self).language_commands(str(interaction.guild.id))
         latency = round(self.bot.latency * 1000)
         
         embed = discord.Embed(description=f"```\n{language['help']}```")

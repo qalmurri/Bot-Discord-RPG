@@ -7,6 +7,7 @@ from cogs.activity.logging import logging
 
 import datetime
 from bson import ObjectId
+from datetime import timedelta
 
 class pve_commands(commands.Cog):
     def __init__(self, bot):
@@ -36,17 +37,16 @@ class pve_commands(commands.Cog):
                         head_stats = player.get("game", {}).get("rpg", {}).get("use", {}).get("head", {}).get("stats", {})
                         head_str, head_vit, head_int, head_agi, head_fire, head_water, head_wind, head_earth = (head_stats.get(key, 0) for key in ("str", "vit", "int", "agi", "fire", "water", "wind", "earth"))
 
-                        #stats_environment
-                        environment_profile = pve.get("profile", {})
-                        environment_name = environment_profile.get("name", {})
-                        environment_class = environment_profile.get("class", {})
-                        environment_stats = pve.get("stats", {})
-                        environment_hp = environment_stats.get("hp", {})
-
-                        #mekanisme stats
+                        enemy_profile = pve.get("profile", {})
+                        enemy_name = enemy_profile.get("name", {})
+                        enemy_class = enemy_profile.get("class", {})
 
                         #HP_envirinment
-                        total_hp = environment_hp - head_str
+                        enemy_stats = pve.get("bar", {})
+                        enemy_hp = enemy_stats.get("hp", {})
+                        enemy_mana = enemy_stats.get("mana", {})
+
+                        total_hp = enemy_hp - head_str
 
                         lobby = pve.get("lobby", {}).get("user", {}).get(str(ctx.author.id), None)
                         if lobby is None:
@@ -54,28 +54,34 @@ class pve_commands(commands.Cog):
                                     {"_id": ctx.guild.id}, {"$set": {f"pve.lobby.user.{str(ctx.author.id)}": datetime.datetime.now()}})
                             
                             embed = discord.Embed()
-                            embed.set_author(name=ctx.author.name + f" bergabung untuk menyerang {environment_name} ({environment_class})", icon_url=ctx.author.display_avatar)
+                            embed.set_author(name=ctx.author.name + f" bergabung untuk menyerang {enemy_name} ({enemy_class})", icon_url=ctx.author.display_avatar)
 
                             await  ctx.message.channel.send(embed=embed)
-                            logging.info(f"{ctx.author.name} joined {environment_name}")
+                            logging.info(f"{ctx.author.name} joined {enemy_name}")
                         else:
                             await db.SPAWN.update_one(
                                 {"pve.status": "active"}, {
                                     "$set": {
-                                        "pve.stats.hp": total_hp,
+                                        "pve.bar.hp": total_hp,
                                         }
                                     }
                                 )
+                            
+                            enemy_expire_at = pve.get("expire_at", {})
+                            add_expire = enemy_expire_at + timedelta(minutes=var.expired_enemy)
                             await db.SPAWN.update_one(
-                                {"_id": ctx.guild.id}, {"$set": {f"pve.lobby.log.attacker.{ctx.author.id}_{ObjectId()}": head_str }}
+                                {"_id": ctx.guild.id}, {"$set": {
+                                    f"pve.lobby.log.attacker.{ctx.author.id}_{ObjectId()}": head_str,
+                                    f"pve.expire_at": add_expire,
+                                      }}
                                 )
                             
-                            if environment_hp <= 1:
+                            if enemy_hp <= 1:
                                 await ctx.channel.send(f"```c\nini adalah kemenangan kalian, yeay!```")
                                 await self.result_pve(ctx, pve)
                             else:
-                                await ctx.channel.send(f"```c\n{ctx.author.name} menyerang {environment_name}({environment_class}) dengan damage serangan {head_str}, Monster mempunyai {total_hp} hp```")
-                                logging.info(f"{ctx.author.name} .attack {environment_name}")
+                                await ctx.channel.send(f"```c\n{ctx.author.name} menyerang {enemy_name}({enemy_class}) dengan damage serangan {head_str}, Monster mempunyai {total_hp} hp```")
+                                logging.info(f"{ctx.author.name} .attack {enemy_name}")
         else:
             print("channel tidak ada")
 
@@ -89,10 +95,10 @@ class pve_commands(commands.Cog):
             await ctx.send(f"This command is on cooldown for another " + str("%.2f" % error.retry_after) + " seconds!", delete_after=4)
 
     async def result_pve(self, ctx, pve):
-        environment_attacker = pve.get("lobby", {}).get("log", {}).get("attacker", {})
-        if isinstance(environment_attacker, dict):
+        enemy_attacker = pve.get("lobby", {}).get("log", {}).get("attacker", {})
+        if isinstance(enemy_attacker, dict):
             code_sum = {}
-            for key, value in environment_attacker.items():
+            for key, value in enemy_attacker.items():
                 code = key.split("_")[0]
                 if code in code_sum:
                     code_sum[code] += value

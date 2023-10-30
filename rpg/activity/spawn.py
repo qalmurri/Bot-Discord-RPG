@@ -9,7 +9,6 @@ from cogs.activity.logging import logging
 import asyncio
 from datetime import datetime
 
-
 class spawn(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -27,18 +26,18 @@ class spawn(commands.Cog):
 
                     if channel:
                         guild = document.get("_id")
-                        Environment = load_rpg(self).spawn_environment(str(guild))
+                        enemy = load_rpg(self).spawn_enemy(str(guild))
                         
-                        expire = Environment.get("expire_at")
-                        name = Environment['profile']['name']
-                        description = Environment['profile']['description']
-                        hp = Environment['stats']['hp']
-                        mana = Environment['stats']['mana']
+                        expire = enemy.get("expire_at")
+                        name = enemy['profile']['name']
+                        description = enemy['profile']['description']
+                        hp = enemy['bar']['hp']
+                        mana = enemy['bar']['mana']
 
-                        await db.SPAWN.update_many({"pve": None}, {"$set": {"pve": Environment}})
+                        await db.SPAWN.update_many({"pve": None}, {"$set": {"pve": enemy}})
                         
                         embed = discord.Embed(title=name, description=description)
-                        embed.add_field(name="Stats", value=f"HP: {hp}\nMana: {mana}", inline=False)
+                        embed.add_field(name="Bar", value=f"HP: {hp}\nMana: {mana}", inline=False)
                         embed.set_thumbnail(url="https://wiki.dfo-world.com/images/2/23/AdaptingJagos.gif")
                         
                         await channel.send(embed=embed)
@@ -58,7 +57,7 @@ class spawn(commands.Cog):
                 else:
                     pass
 
-            await asyncio.sleep(var.spawn_environment)
+            await asyncio.sleep(var.spawn_enemy)
 
 async def setup(bot):
     await bot.add_cog(spawn(bot))

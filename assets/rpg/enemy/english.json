@@ -1,0 +1,12 @@
+{
+    "co001_name": "Jailangkung",
+    "co001_class": "Common",
+    "co001_description": "Jailangkung/jelangkung is a traditional Indonesian game which has the character of a living supernatural ritual.",
+    "co001_hp": 100,
+    "co001_mana": 100,
+    "co002_name": "Pocong",
+    "co002_class": "Common",
+    "co002_description": "Pocong is a type of ghost in the form of a human wrapped in a shroud.",
+    "co002_hp": 200,
+    "co002_mana": 200
+}

@@ -17,7 +17,7 @@ class profile(commands.Cog):
     @app_commands.describe(game="Refreshing")
     @app_commands.choices(game=[app_commands.Choice(name="RPG", value="0")])
     async def profile(self, interaction:discord.Interaction, member:discord.Member, game: typing.Optional[app_commands.Choice[str]] = None):
-        language =  load_cogs(self).language(str(interaction.guild.id))
+        language =  load_cogs(self).language_commands(str(interaction.guild.id))
 
         if member is None and game is None:
             await interaction.response.send_message(language["member_game_is_none"])

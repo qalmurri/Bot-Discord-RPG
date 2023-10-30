@@ -1,49 +1,45 @@
-import json
 from discord.ext import commands
-import random
 
 import variable as var
+from cogs.function import load_cogs
 
+import random
+import json
 from datetime import datetime, timedelta
 
 class load_rpg(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    def language_environment(self, guild, random_common):
-        try:
-            with open('config/' + guild + '.json', 'r') as file:
-                data = json.load(file)
-                if isinstance(data.get("language"), str):
-                    guild_language = data.get("language", "0")
-        except FileNotFoundError:
-            guild_language = "0"
+    def language_enemy(self, guild, random_common):
+        language = load_cogs.config(self, guild)
+        directory = "assets/rpg/enemy"
+        file_language = f"{directory}/english/{random_common}.json" if language == "0" else f"{directory}/indonesian/{random_common}.json"
 
-        file_language = f"assets/rpg/environment/english/{random_common}.json" if guild_language == "0" else f"assets/rpg/environment/indonesian/{random_common}.json"
         with open(file_language, 'r') as json_file:
-            language_environment = json.load(json_file)
-        return language_environment
+            language_enemy = json.load(json_file)
+        return language_enemy
 
     def logic_spawn(self, guild):
         common = ["co001", "co002"]
         random_common = random.choice(common)
+        enemy_result = self.language_enemy(guild, random_common)
 
-        environment_result = self.language_environment(guild, random_common)
-        return environment_result, random_common
+        return enemy_result, random_common
 
-    def spawn_environment(self, guild):
-        environment_result, random_common =  self.logic_spawn(guild)
+    def spawn_enemy(self, guild):
+        enemy_result, random_common = self.logic_spawn(guild)
 
-        name = environment_result['name']
-        class_value = environment_result['class']
-        description = environment_result['description']
+        name = enemy_result['name']
+        class_value = enemy_result['class']
+        description = enemy_result['description']
         
-        hp = environment_result['hp']
+        hp = enemy_result['hp']
         hp_result = random.randint(hp, hp*2)
-        mana = environment_result['mana']
+        mana = enemy_result['mana']
         mana_result = random.randint(mana, mana*2)
 
-        environment = {
+        enemy = {
                 "id_image": random_common,
                 "status": "active",
                 "profile": {
@@ -55,11 +51,11 @@ class load_rpg(commands.Cog):
                     "user": {},
                     "log": {},
                     },
-                "stats": {
+                "bar": {
                     "hp": hp_result,
                     "mana": mana_result,
                     },
-                    "expire_at": datetime.utcnow() + timedelta(minutes=var.expired_environment)
+                    "expire_at": datetime.utcnow() + timedelta(minutes=var.expired_enemy)
                 }
     
-        return environment
+        return enemy

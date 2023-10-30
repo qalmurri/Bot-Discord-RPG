@@ -11,7 +11,7 @@ class interaction_id(commands.Cog):
 
     @commands.Cog.listener()
     async def on_interaction(self, interaction: discord.Interaction):
-        language =  load_cogs(self).language(str(interaction.guild.id))
+        language =  load_cogs(self).language_commands(str(interaction.guild.id))
         data = interaction.data
         custom_id = data.get('custom_id')
 

@@ -16,7 +16,7 @@ class lang(commands.Cog):
     @app_commands.describe(languages="choice language")
     @app_commands.choices(languages=[app_commands.Choice(name="English", value="0"), app_commands.Choice(name="Indonesian", value="1")])
     async def set_language(self, interaction:discord.interactions, languages: typing.Optional[app_commands.Choice[str]]):
-        language =  load_cogs(self).language(str(interaction.guild.id))
+        language_commands =  load_cogs(self).language_commands(str(interaction.guild.id))
         latency = round(self.bot.latency * 1000)
 
         if languages is not None:
@@ -30,8 +30,8 @@ class lang(commands.Cog):
 
             load_cogs(self).save_language(language_config, str(interaction.guild.id))
 
-            embed = discord.Embed(description=language["change_language"] + f"```{languages.name}```")
-            embed.set_footer(text=language["latency"] + " " + str(latency) + language["ms"])
+            embed = discord.Embed(description=language_commands["change_language"] + f"```{languages.name}```")
+            embed.set_footer(text=language_commands["latency"] + " " + str(latency) + language_commands["ms"])
 
             await interaction.response.send_message(embed=embed, ephemeral=var.language_ephemeral, delete_after=var.language_delete)
             logging.info(f"{interaction.guild.id}/{interaction.channel.id}/{interaction.id}: Change language {languages.name}")
