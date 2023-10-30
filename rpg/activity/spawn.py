@@ -28,6 +28,7 @@ class spawn(commands.Cog):
                     if channel:
                         guild = document.get("_id")
                         Environment = load_rpg(self).spawn_environment(str(guild))
+                        
                         expire = Environment.get("expire_at")
                         name = Environment['profile']['name']
                         description = Environment['profile']['description']

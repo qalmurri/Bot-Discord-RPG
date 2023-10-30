@@ -1,5 +1,5 @@
 #gak ngerti
-spawn_environment = 10
+spawn_environment = 1
 expired_environment = 5 #minutes
 attack_cooldown = 4
 

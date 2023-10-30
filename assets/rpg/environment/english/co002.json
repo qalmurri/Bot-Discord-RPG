@@ -1,0 +1,7 @@
+{
+    "name": "Pocong",
+    "class": "Common",
+    "description": "Pocong is a type of ghost in the form of a human wrapped in a shroud.",
+    "hp": 200,
+    "mana": 200
+}
